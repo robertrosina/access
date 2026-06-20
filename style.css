@@ -1504,3 +1504,76 @@ section#method.navy {
   background: rgba(3, 8, 12, 0.58) !important;
   background-image: none !important;
 }
+
+
+/* MOBILE LOGO PATCH:
+   The arrow mark is present in the splash HTML, but it previously had no CSS.
+   On small screens the raw 526px image could dominate the splash stack or be pushed out of view.
+   This gives the mark a controlled size and also shows it beside the wordmark in the mobile header. */
+.splash-mark {
+  width: min(112px, 24vw);
+  height: auto;
+  margin: 0 0 20px;
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  filter: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.34));
+  animation: splashLogoIn 850ms ease 80ms forwards;
+}
+
+.brand {
+  gap: 10px;
+}
+
+.brand-mark {
+  display: none;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.24));
+}
+
+@media (max-width: 640px) {
+  .splash-screen {
+    padding: 22px;
+  }
+
+  .splash-mark {
+    width: min(88px, 24vw);
+    margin-bottom: 15px;
+  }
+
+  .splash-logo {
+    width: min(285px, 72vw);
+  }
+
+  .splash-keywords {
+    margin-top: 22px;
+    gap: clamp(12px, 4vw, 20px);
+    font-size: clamp(0.72rem, 3vw, 0.95rem);
+    letter-spacing: 0.18em;
+  }
+
+  .brand {
+    gap: 9px;
+  }
+
+  .brand-mark {
+    display: block;
+  }
+
+  .brand-logo {
+    width: 132px;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+  }
+
+  .brand-logo {
+    width: 118px;
+  }
+}
