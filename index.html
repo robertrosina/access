@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Access Acting Studio | Become Unstoppable</title>
+  <title>Access Acting Studio</title>
   <meta name="description" content="Access Acting Studio is a method-led, screen-first acting school in Sydney for truthful behaviour, purposeful choices, camera work, playback, and story service." />
-  <meta property="og:title" content="Access Acting Studio | Become Unstoppable" />
+  <meta property="og:title" content="Access Acting Studio" />
   <meta property="og:description" content="A practical screen acting method for truthful behaviour, purposeful choices, camera evidence, and story-driven performance." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,21 +13,51 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="splash-loading">
+  <div class="splash-screen" aria-hidden="true">
+    <div class="splash-inner">
+      <img class="splash-mark" src="images/Logo.png" alt="" />
+      <img class="splash-logo" src="images/access-logo-transparent.png" alt="" />
+      <div class="splash-keywords" aria-label="Truth Choice Story">
+        <span>Truth</span>
+        <span>Choice</span>
+        <span>Story</span>
+      </div>
+    </div>
+  </div>
+
   <header class="site-header">
     <a href="#top" class="brand" aria-label="Access Acting Studio home">
       <img class="brand-logo" src="images/access-logo-transparent.png" alt="Access Acting Studio" />
     </a>
 
     <nav class="nav" aria-label="Primary navigation">
-      <a href="#method">THE METHOD</a>
+      <a href="#visuals">THE ROOM</a>
       <a href="#founders">FOUNDERS</a>
+      <a href="#method">THE METHOD</a>
       <a href="#weekend">WEEKEND INTENSIVE</a>
       <a href="#pathway">PATHWAY</a>
-      <a href="#visuals">THE ROOM</a>
       <a class="nav-cta" href="#enquire">ENQUIRE NOW</a>
     </nav>
+
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </header>
+
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <button class="mobile-menu-close" type="button" aria-label="Close menu">&times;</button>
+    <nav class="mobile-menu-nav" aria-label="Mobile navigation">
+      <a href="#method">THE METHOD</a>
+      <a href="#founders">FOUNDERS</a>
+      <a href="#pathway">PATHWAY</a>
+      <a href="#weekend">WEEKEND INTENSIVE</a>
+      <a href="#visuals">THE ROOM</a>
+      <a class="mobile-nav-cta" href="#enquire">ENQUIRE NOW</a>
+    </nav>
+  </div>
 
   <main id="top">
     <section class="hero section-pad">
@@ -36,7 +66,7 @@
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">ACCESS ACTING STUDIO</p>
-          <h1>Become Unstoppable</h1>
+          <h1>Become <span class="hero-word-gold">Unstoppable</span></h1>
           <p class="hero-lead">Learn to access truthful behaviour and shape it with purpose in service of the story.</p>
           <p class="hero-body"></p>
           <div class="hero-actions">
@@ -47,44 +77,52 @@
       </div>
     </section>
 
-    <section id="method" class="section-pad cream">
+
+    <section id="visuals" class="section-pad visual-section">
       <div class="container two-col">
         <div>
-          <p class="eyebrow">The Access Method</p>
-          <h2>Truthful behaviour, shaped with purpose.</h2>
+          <p class="eyebrow">The room</p>
+          <h2>Where imagination meets intellect.</h2>
         </div>
         <div class="prose">
-          <p>The Access Method is the teaching spine of the school: practical technique, professional screen experience, scene work, camera practice, playback, and purposeful adjustment.</p>
-          <p>Actors learn to stop guessing, build behaviour with structure, test choices on camera, and refine what lands in service of the story.</p>
+          <p>Actors build their characters and scenes, rehearse, receive notes, shoot the work, and review what the camera records. Playback becomes a tool for diagnosis, correction, and progress.</p>
+          <p><em>The standard is practical, empathetic, and exact: feedback is specific, disciplined, respectful, and focused on continual progression toward mastery.</em></p>
         </div>
       </div>
 
-      <div class="container method-cards">
-        <article>
-          <span>01</span>
-          <h3>Access truthful behaviour</h3>
-          <p>Become more available, responsive, connected, and believable under imaginary circumstances.</p>
-        </article>
-        <article>
-          <span>02</span>
-          <h3>Shape purposeful choices</h3>
-          <p>Use objective, relationship, action, obstacle, stakes, and adjustment to build the scene.</p>
-        </article>
-        <article>
-          <span>03</span>
-          <h3>Test it on camera</h3>
-          <p>Use diagnostic filming and playback to see what reads, what lands, and what needs adjustment.</p>
-        </article>
-        <article>
-          <span>04</span>
-          <h3>Serve the story</h3>
-          <p>Make choices that move the scene, affect the other person, and clarify the work.</p>
-        </article>
+      <div class="container photo-grid">
+        <figure class="photo-card">
+          <img src="images/rehearsal-room-table.jpg" alt="Actors in a rehearsal room working around a table." />
+          <figcaption>
+            <span>Rehearsal</span>
+            <strong>Relationship, scene exploration, action, stakes</strong>
+          </figcaption>
+        </figure>
+        <figure class="photo-card wide playback-feature">
+          <img src="images/director-monitor-scene.jpg" alt="Camera monitor showing a close-up screen acting scene." />
+          <figcaption>
+            <span>Filming</span>
+            <strong>Film the work with guidance throughout the process</strong>
+          </figcaption>
+        </figure>
+        <figure class="photo-card tall">
+          <img src="images/scene-work-notes.jpg" alt="Acting class scene work with a teacher giving notes." />
+          <figcaption>
+            <span>Scene work</span>
+            <strong>Choices implemented under pressure</strong>
+          </figcaption>
+        </figure>
+        <figure class="photo-card">
+          <img src="images/camera-playback-room.jpg" alt="Camera recording actors during a class playback exercise." />
+          <figcaption>
+            <span>Playback</span>
+            <strong>Evidence inside the frame</strong>
+          </figcaption>
+        </figure>
       </div>
     </section>
-
-
-    <section id="founders" class="section-pad founders-section">
+	
+    <section id="founders" class="section-pad founders-section cream">
       <div class="container">
         <div class="section-head founders-head">
           <p class="eyebrow">About the founders</p>
@@ -114,55 +152,48 @@
 
         <div class="founder-story prose">
           <p>David Berry is an internationally recognised actor whose work spans television, film, and theatre. He is best known for his standout ongoing role as Lord John Grey in the global series <em>Outlander</em> and as James Bligh in the award-winning series <em>A Place to Call Home</em>. He brings students a working actor’s understanding of preparation, continuity, adjustment, camera discipline, and story service.</p>
-          <p>Robert Rosina brings a production-focused approach to actor training, shaped by filmmaking, broad study of acting technique, and professional experience in strategic communication. Together, Robert and David teach The Access Method, combining practical technique, professional screen experience, scene work, camera practice, playback, and purposeful adjustment.</p>
+          <p>Robert Rosina brings a production-focused approach to actor training, shaped by a degree in filmmaking, broad study of acting technique, and professional experience in strategic communication. Together, Robert and David teach The Access Method, combining practical technique, professional screen experience, scene work, camera practice, playback, and purposeful adjustment.</p>
           <p>The method helps actors build performances with structure, life, and purpose through choices they can test, refine, and repeat on camera. This is screen training for actors who want to stop guessing, understand their craft, and make their work land.</p>
         </div>
     </section>
 
 
-    <section id="visuals" class="section-pad visual-section">
+    <section id="method" class="section-pad navy">
       <div class="container two-col">
         <div>
-          <p class="eyebrow">The room</p>
-          <h2>A serious room built around evidence.</h2>
+          <p class="eyebrow">The Access Method</p>
+          <h2>Truthful behaviour, shaped with purpose.</h2>
         </div>
         <div class="prose">
-          <p>Actors rehearse, receive notes, shoot the work, and review what the camera records. Playback becomes a tool for diagnosis, correction, and progress.</p>
-          <p>The standard is practical, humane, and exact: feedback is specific, disciplined, respectful, and connected to the scene, the camera, and the story.</p>
+          <p>The Access Method is the teaching spine of the school: practical technique, professional screen experience, scene work, camera practice, playback, and purposeful adjustment.</p>
+          <p><em>Actors learn to stop guessing, build behaviour with structure, test choices on camera, and refine what lands in service of the story.</em></p>
         </div>
       </div>
 
-      <div class="container photo-grid">
-        <figure class="photo-card wide playback-feature">
-          <img src="images/director-monitor-scene.jpg" alt="Camera monitor showing a close-up screen acting scene." />
-          <figcaption>
-            <span>Camera playback</span>
-            <strong>Film the work. Review the evidence.</strong>
-          </figcaption>
-        </figure>
-        <figure class="photo-card tall">
-          <img src="images/scene-work-notes.jpg" alt="Acting class scene work with a teacher giving notes." />
-          <figcaption>
-            <span>Scene work</span>
-            <strong>Choices under pressure</strong>
-          </figcaption>
-        </figure>
-        <figure class="photo-card">
-          <img src="images/camera-playback-room.jpg" alt="Camera recording actors during a class playback exercise." />
-          <figcaption>
-            <span>Playback</span>
-            <strong>Evidence inside the frame</strong>
-          </figcaption>
-        </figure>
-        <figure class="photo-card">
-          <img src="images/rehearsal-room-table.jpg" alt="Actors in a rehearsal room working around a table." />
-          <figcaption>
-            <span>Rehearsal</span>
-            <strong>Relationship, action, stakes</strong>
-          </figcaption>
-        </figure>
-      </div>
+      <div class="container method-cards">
+        <article>
+          <span>TRUTH</span>
+          <h3>Access truthful behaviour</h3>
+          <p>Become more available, responsive, connected, and believable under imaginary circumstances.</p>
+        </article>
+        <article>
+          <span>CHOICE</span>
+          <h3>Shape purposeful choices</h3>
+          <p>Use objective, relationship, action, obstacle, stakes, and adjustment to build the scene.</p>
+        </article>
+        <article>
+          <span>STORY</span>
+          <h3>Serve the story</h3>
+          <p>Make choices that move the scene, affect the other person, and clarify the work.</p>
+        </article>
+        <article>
+          <span>REFINE</span>
+		  <h3>Test it on camera</h3>
+          <p>Use diagnostic filming and playback to see what reads, what lands, and what needs adjustment.</p>
+        </article>
+              </div>
     </section>
+
 
     <section id="weekend" class="section-pad">
       <div class="container">
@@ -220,13 +251,22 @@
       </div>
     </section>
 
-    <section class="section-pad navy quote-section">
-      <img class="quote-texture" src="images/black-cinematic-strip.jpg" alt="" aria-hidden="true" />
-      <div class="container quote-block">
-        <p class="eyebrow gold">Class culture</p>
-        <blockquote>A serious room. A humane standard. Work that serves the story.</blockquote>
-      </div>
-    </section>
+<section class="section-pad navy quote-section">
+  <img class="quote-texture" src="images/black-cinematic-strip.jpg" alt="" aria-hidden="true" />
+
+  <div class="container quote-block quote-block-sharp">
+    <p class="eyebrow gold">The Access Standard</p>
+
+    <blockquote class="founder-quote">
+      <span>Stop obsessing over <em>your</em> emotions in a scene. What matters is what you make the audience feel.</span>
+    </blockquote>
+
+<cite class="quote-attribution">
+  Robert Rosina<br>
+  <span>Co-Founder, Access Acting Studio</span>
+</cite>
+  </div>
+</section>
 
     <section id="pathway" class="section-pad cream">
       <div class="container">
@@ -294,12 +334,74 @@
       <div>
         <strong>ACCESS ACTING STUDIO</strong>
         <p>Become Unstoppable</p>
+        <p>© 2026 Access Acting Studio. All rights reserved.</p>
       </div>
       <div>
-        <p>Sydney screen actor training</p>
-        <p><a href="mailto:robertrosina@outlook.com.au">robertrosina@outlook.com.au</a></p>
+
+		<p>ABN 55 555 555 555</p>
+        <p><a href="#/privacy">Privacy</a></p>
       </div>
     </div>
   </footer>
+
+  <script>
+    const splashScreen = document.querySelector('.splash-screen');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reducedMotion) {
+      document.body.classList.remove('splash-loading');
+      splashScreen?.remove();
+    } else {
+      window.addEventListener('load', () => {
+        window.setTimeout(() => {
+          document.body.classList.remove('splash-loading');
+        }, 4100);
+
+        window.setTimeout(() => {
+          splashScreen?.remove();
+        }, 5000);
+      });
+    }
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuClose = document.querySelector('.mobile-menu-close');
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-nav a');
+
+    function openMobileMenu() {
+      mobileMenu.classList.add('is-open');
+      document.body.classList.add('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      mobileMenuClose.focus();
+    }
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('is-open');
+      document.body.classList.remove('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    }
+
+    menuToggle.addEventListener('click', openMobileMenu);
+    mobileMenuClose.addEventListener('click', closeMobileMenu);
+    mobileMenuLinks.forEach((link) => link.addEventListener('click', closeMobileMenu));
+
+    mobileMenu.addEventListener('click', (event) => {
+      if (event.target === mobileMenu) closeMobileMenu();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && mobileMenu.classList.contains('is-open')) {
+        closeMobileMenu();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 980 && mobileMenu.classList.contains('is-open')) {
+        closeMobileMenu();
+      }
+    });
+  </script>
 </body>
 </html>
