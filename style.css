@@ -1577,3 +1577,250 @@ section#method.navy {
     width: 118px;
   }
 }
+
+/* MOBILE READABILITY + TOUCH PATCH:
+   Keeps the desktop intact while making phone layouts easier to read and tap. */
+@media (max-width: 640px) {
+  html {
+    scroll-padding-top: 78px;
+  }
+
+  body {
+    font-size: 17px;
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .site-header {
+    padding: 14px 16px !important;
+  }
+
+  .container {
+    width: min(100% - 32px, 1180px);
+  }
+
+  .section-pad {
+    padding: 64px 0 !important;
+  }
+
+  .eyebrow {
+    margin-bottom: 10px;
+    font-size: 0.74rem;
+    line-height: 1.25;
+    letter-spacing: 0.13em;
+  }
+
+  .two-col,
+  .hero-grid,
+  .cta-card {
+    gap: 24px !important;
+  }
+
+  .two-col h2,
+  .section-head h2,
+  .cta-card h2 {
+    font-size: clamp(2.15rem, 10vw, 3.25rem) !important;
+    line-height: 1.08;
+    letter-spacing: -0.055em;
+  }
+
+  .prose,
+  .section-head p:last-child,
+  .founder-card p:not(.eyebrow),
+  .method-cards p,
+  .pathway-step p,
+  .course-details span,
+  .feature-list li,
+  .notice,
+  .cta-card p,
+  .site-footer p {
+    font-size: 1rem !important;
+    line-height: 1.68 !important;
+  }
+
+  .hero {
+    min-height: 650px !important;
+    align-items: flex-end;
+    padding-top: 120px !important;
+    padding-bottom: 66px !important;
+  }
+
+  .hero-copy {
+    max-width: 92vw;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.2rem, 16vw, 5rem) !important;
+    line-height: 0.96;
+    letter-spacing: -0.07em;
+  }
+
+  .hero-lead {
+    max-width: 94%;
+    margin-top: 22px;
+    font-size: 1.14rem !important;
+    line-height: 1.43;
+  }
+
+  .hero-actions {
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .button {
+    min-height: 54px;
+    padding: 0 18px;
+    font-size: 0.82rem;
+  }
+
+  .founder-card,
+  .method-cards article,
+  .pathway-step,
+  .course-panel,
+  .course-details div,
+  .enquiry-form {
+    padding: 22px !important;
+  }
+
+  .founder-card h3 {
+    font-size: 1.85rem !important;
+    line-height: 1.1;
+  }
+
+  .method-cards h3,
+  .pathway-step h3,
+  .course-panel h3 {
+    font-size: 1.42rem !important;
+    line-height: 1.16;
+  }
+
+  .method-cards span,
+  .pathway-step span {
+    margin-bottom: 20px !important;
+  }
+
+  .photo-grid {
+    gap: 14px;
+    grid-auto-rows: auto !important;
+  }
+
+  .photo-card {
+    min-height: 265px;
+  }
+
+  .photo-card figcaption {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    padding: 12px 13px;
+    border-radius: 14px;
+  }
+
+  .photo-card figcaption span {
+    font-size: 0.66rem;
+    letter-spacing: 0.13em;
+  }
+
+  .photo-card figcaption strong {
+    font-size: 0.96rem;
+    line-height: 1.28;
+  }
+
+  .course-image {
+    min-height: 250px;
+  }
+
+  .course-details {
+    border-radius: 18px;
+  }
+
+  .notice {
+    padding: 15px 16px;
+  }
+
+  .quote-block blockquote {
+    font-size: clamp(2.05rem, 10.5vw, 3.35rem) !important;
+    line-height: 1.09;
+    letter-spacing: -0.055em;
+  }
+
+  .quote-attribution {
+    display: block;
+    margin-top: 26px;
+    color: rgba(255, 255, 255, 0.90);
+    font-size: 1rem;
+    line-height: 1.45;
+    font-style: normal;
+  }
+
+  .quote-attribution span {
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.88rem;
+  }
+
+  input,
+  textarea {
+    min-height: 50px;
+    padding: 14px 14px;
+    font-size: 1rem;
+  }
+
+  .enquiry-form label {
+    font-size: 0.88rem;
+  }
+
+  .form-note {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 420px) {
+  body {
+    font-size: 17px;
+  }
+
+  .container {
+    width: min(100% - 26px, 1180px);
+  }
+
+  .section-pad {
+    padding: 56px 0 !important;
+  }
+
+  .site-header {
+    padding: 13px 14px !important;
+  }
+
+  .hero {
+    min-height: 620px !important;
+    padding-bottom: 58px !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 17vw, 4.35rem) !important;
+  }
+
+  .hero-lead {
+    font-size: 1.08rem !important;
+  }
+
+  .two-col h2,
+  .section-head h2,
+  .cta-card h2 {
+    font-size: clamp(2rem, 10.5vw, 2.9rem) !important;
+  }
+
+  .founder-card,
+  .method-cards article,
+  .pathway-step,
+  .course-panel,
+  .course-details div,
+  .enquiry-form {
+    padding: 20px !important;
+  }
+
+  .photo-card {
+    min-height: 245px;
+  }
+}
