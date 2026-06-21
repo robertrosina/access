@@ -2458,3 +2458,30 @@ section#method.navy {
     transform: none !important;
   }
 }
+
+
+/* FINAL HERO GAP — DOUBLED AGAIN:
+   Keep the hero block starting position, but make the gap between
+   "ACCESS ACTING STUDIO" and "Become Unstoppable" twice as large again. */
+.hero-copy > .eyebrow {
+  display: block !important;
+  margin-bottom: 288px !important;
+}
+
+@media (max-width: 980px) {
+  .hero-copy > .eyebrow {
+    margin-bottom: 248px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-copy > .eyebrow {
+    margin-bottom: 216px !important;
+  }
+}
+
+@media (min-width: 1800px) {
+  .hero-copy > .eyebrow {
+    margin-bottom: 14px !important;
+  }
+}
