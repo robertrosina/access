@@ -2323,3 +2323,103 @@ section#method.navy {
     letter-spacing: 0.14em !important;
   }
 }
+
+
+/* FINAL IMDb SIZE POLISH:
+   IMDb is a horizontal wordmark, so it needs a wider button and a larger image
+   than the square LinkedIn icon. */
+.imdb-link {
+  width: 64px !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+.imdb-link img,
+.founder-link img[alt="IMDb"] {
+  width: 54px !important;
+  max-width: none !important;
+  height: auto !important;
+}
+
+@media (max-width: 640px) {
+  .imdb-link {
+    width: 60px !important;
+  }
+
+  .imdb-link img,
+  .founder-link img[alt="IMDb"] {
+    width: 50px !important;
+    max-width: none !important;
+    height: auto !important;
+  }
+}
+
+
+/* HERO SPACING REFINEMENT:
+   Add a larger gap between "ACCESS ACTING STUDIO" and "Become Unstoppable"
+   on normal screens and smaller devices, while keeping it tighter on very wide monitors. */
+.hero .eyebrow {
+  margin-bottom: clamp(26px, 4vw, 40px) !important;
+}
+
+@media (min-width: 1800px) {
+  .hero .eyebrow {
+    margin-bottom: 14px !important;
+  }
+}
+
+
+/* FINAL HERO EYEBROW GAP — STRONGER:
+   This creates a clearly visible gap between "ACCESS ACTING STUDIO"
+   and "Become Unstoppable" on phones, tablets, laptops, and normal desktops.
+   Very wide monitors keep the tighter original spacing. */
+.hero-copy > .eyebrow {
+  display: block !important;
+  margin-bottom: 72px !important;
+}
+
+@media (max-width: 980px) {
+  .hero-copy > .eyebrow {
+    margin-bottom: 62px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-copy > .eyebrow {
+    margin-bottom: 54px !important;
+  }
+}
+
+@media (min-width: 1800px) {
+  .hero-copy > .eyebrow {
+    margin-bottom: 14px !important;
+  }
+}
+
+
+/* FINAL HERO EYEBROW GAP — DOUBLED:
+   Doubles the visible space between "ACCESS ACTING STUDIO"
+   and "Become Unstoppable" on normal screens and mobile.
+   Very wide monitors keep the tighter original spacing. */
+.hero-copy > .eyebrow {
+  display: block !important;
+  margin-bottom: 144px !important;
+}
+
+@media (max-width: 980px) {
+  .hero-copy > .eyebrow {
+    margin-bottom: 124px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-copy > .eyebrow {
+    margin-bottom: 108px !important;
+  }
+}
+
+@media (min-width: 1800px) {
+  .hero-copy > .eyebrow {
+    margin-bottom: 14px !important;
+  }
+}
