@@ -2205,3 +2205,53 @@ section#method.navy {
     padding: 26px !important;
   }
 }
+
+
+/* HARD MOBILE TYPE LOCK:
+   This is intentionally last. It catches phone-width screens and coarse-pointer phones,
+   then forces readable body text across paragraphs, cards, lists, form notes and section intros. */
+@media (max-width: 760px), (hover: none) and (pointer: coarse) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    font-size: 20px !important;
+    line-height: 1.7 !important;
+  }
+
+  p,
+  li,
+  .prose,
+  .prose p,
+  .section-head > p:not(.eyebrow),
+  .section-head p:last-child,
+  .founders-head > p:not(.eyebrow),
+  .founder-card p:not(.eyebrow),
+  .method-cards p,
+  .pathway-step p,
+  .course-details span,
+  .feature-list li,
+  .notice,
+  .cta-card p,
+  .form-note,
+  .site-footer p {
+    font-size: 20px !important;
+    line-height: 1.7 !important;
+  }
+
+  .hero-lead {
+    font-size: 1.55rem !important;
+    line-height: 1.36 !important;
+  }
+
+  .eyebrow {
+    font-size: 0.8rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .button {
+    font-size: 0.94rem !important;
+  }
+}
