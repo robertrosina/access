@@ -11,54 +11,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=mobile-type-lock-20260621" />
+  <link rel="stylesheet" href="style.css?v=mobile-type-balanced-20260621" />
 
   <style>
-    /* HARD MOBILE TYPE LOCK: keep phone body copy genuinely readable */
+    /* FINAL BALANCED MOBILE TYPE INLINE */
     @media (max-width: 760px), (hover: none) and (pointer: coarse) {
-      html {
-        -webkit-text-size-adjust: 100%;
-        text-size-adjust: 100%;
+      body { font-size: 17.5px !important; line-height: 1.62 !important; }
+      p, li, .prose, .prose p, .section-head > p:not(.eyebrow), .section-head p:last-child,
+      .founders-head > p:not(.eyebrow), .founder-card p:not(.eyebrow), .method-cards p,
+      .pathway-step p, .course-details span, .feature-list li, .notice, .cta-card p,
+      .form-note, .site-footer p {
+        font-size: 17.5px !important;
+        line-height: 1.62 !important;
       }
-
-      body {
-        font-size: 20px !important;
-        line-height: 1.7 !important;
-      }
-
-      p,
-      li,
-      .prose,
-      .prose p,
-      .section-head > p:not(.eyebrow),
-      .section-head p:last-child,
-      .founders-head > p:not(.eyebrow),
-      .founder-card p:not(.eyebrow),
-      .method-cards p,
-      .pathway-step p,
-      .course-details span,
-      .feature-list li,
-      .notice,
-      .cta-card p,
-      .form-note,
-      .site-footer p {
-        font-size: 20px !important;
-        line-height: 1.7 !important;
-      }
-
-      .hero-lead {
-        font-size: 1.55rem !important;
-        line-height: 1.36 !important;
-      }
-
-      .eyebrow {
-        font-size: 0.8rem !important;
-        line-height: 1.35 !important;
-      }
-
-      .button {
-        font-size: 0.94rem !important;
-      }
+      .hero-lead { font-size: 1.36rem !important; line-height: 1.34 !important; }
+      .eyebrow { font-size: 0.74rem !important; line-height: 1.3 !important; }
+      .button { font-size: 0.86rem !important; }
     }
   </style>
 </head>
