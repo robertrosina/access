@@ -2582,3 +2582,34 @@ section#method.navy {
     height: 30px !important;
   }
 }
+
+.course-date {
+  display: inline-grid;
+  gap: 4px;
+  margin: 18px 0 20px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: #fff7e9;
+  border: 1px solid rgba(13, 21, 25, 0.12);
+  box-shadow: 0 14px 32px rgba(8, 13, 17, 0.08);
+}
+
+.course-date span {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--gold-dark);
+}
+
+.course-date strong {
+  font-family: var(--heading);
+  font-size: 1.18rem;
+  color: var(--ink);
+}
+
+.course-date em {
+  font-style: normal;
+  color: #556167;
+  font-size: 0.96rem;
+}
