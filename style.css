@@ -2250,3 +2250,76 @@ section#method.navy {
     font-size: 0.86rem !important;
   }
 }
+
+
+/* FINAL MOBILE POLISH:
+   1) Reduce the mobile hero title so "Unstoppable" no longer clips on the right.
+   2) Enlarge the IMDb logo by about 25% while keeping the icon button tidy. */
+@media (max-width: 760px), (hover: none) and (pointer: coarse) {
+  .hero h1 {
+    font-size: clamp(2.85rem, 13.2vw, 4.35rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.06em !important;
+    max-width: 100% !important;
+  }
+
+  .hero-copy {
+    max-width: calc(100vw - 30px) !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero h1 {
+    font-size: clamp(2.75rem, 12.8vw, 3.55rem) !important;
+  }
+}
+
+.founder-link img[alt="IMDb"] {
+  width: 43px !important;
+  max-width: none !important;
+  height: auto !important;
+}
+
+@media (max-width: 640px) {
+  .founder-link img[alt="IMDb"] {
+    width: 40px !important;
+    max-width: none !important;
+    height: auto !important;
+  }
+}
+
+
+/* FINAL MOBILE EYEBROW POLISH:
+   Slightly increases the small uppercase section labels such as
+   "Access Acting Studio", "Professional Acting Authority", and
+   "Film Production Authority" on phones. */
+@media (max-width: 760px), (hover: none) and (pointer: coarse) {
+  .eyebrow,
+  .hero .eyebrow,
+  .founder-card .eyebrow,
+  .section-head .eyebrow,
+  .course-panel .eyebrow,
+  .cta-card .eyebrow {
+    font-size: 0.84rem !important;
+    line-height: 1.34 !important;
+    letter-spacing: 0.145em !important;
+  }
+
+  .founder-card .eyebrow {
+    margin-bottom: 12px !important;
+  }
+
+  .hero .eyebrow {
+    margin-bottom: 12px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .eyebrow,
+  .hero .eyebrow,
+  .founder-card .eyebrow,
+  .section-head .eyebrow {
+    font-size: 0.82rem !important;
+    letter-spacing: 0.14em !important;
+  }
+}
