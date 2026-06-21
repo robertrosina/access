@@ -2094,3 +2094,114 @@ section#method.navy {
   font-weight: 800;
   text-shadow: 0 10px 34px rgba(182, 138, 53, 0.14);
 }
+
+
+/* FINAL MOBILE READABILITY OVERRIDE:
+   The earlier cascade still allowed several paragraphs and card bodies to read too small on phones.
+   This pass raises the practical reading size across mobile sections. */
+@media (max-width: 760px) {
+  body {
+    font-size: 18.5px !important;
+    line-height: 1.68 !important;
+  }
+
+  p,
+  li,
+  .prose,
+  .section-head p,
+  .founders-head p,
+  .founder-card p:not(.eyebrow),
+  .method-cards p,
+  .pathway-step p,
+  .course-details span,
+  .feature-list li,
+  .notice,
+  .cta-card p,
+  .form-note {
+    font-size: 18.5px !important;
+    line-height: 1.68 !important;
+  }
+
+  .eyebrow {
+    font-size: 0.78rem !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.18em !important;
+  }
+
+  .hero-lead {
+    font-size: 1.42rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .button,
+  .nav-cta,
+  .mobile-nav-cta {
+    font-size: 0.9rem !important;
+  }
+
+  .founder-card,
+  .method-cards article,
+  .pathway-step,
+  .course-panel,
+  .course-details div,
+  .cta-card {
+    padding-left: 26px !important;
+    padding-right: 26px !important;
+  }
+
+  input,
+  textarea,
+  .enquiry-form label {
+    font-size: 18px !important;
+    line-height: 1.5 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 19px !important;
+  }
+
+  p,
+  li,
+  .prose,
+  .section-head p,
+  .founders-head p,
+  .founder-card p:not(.eyebrow),
+  .method-cards p,
+  .pathway-step p,
+  .course-details span,
+  .feature-list li,
+  .notice,
+  .cta-card p,
+  .form-note {
+    font-size: 19px !important;
+    line-height: 1.72 !important;
+  }
+
+  .container {
+    width: min(100% - 30px, 1180px) !important;
+  }
+
+  .section-pad {
+    padding-top: 70px !important;
+    padding-bottom: 70px !important;
+  }
+
+  .hero-lead {
+    font-size: 1.48rem !important;
+    line-height: 1.36 !important;
+  }
+
+  .founders-head p {
+    max-width: none !important;
+  }
+
+  .founder-card,
+  .method-cards article,
+  .pathway-step,
+  .course-panel,
+  .course-details div {
+    padding: 26px !important;
+  }
+}
