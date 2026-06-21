@@ -2423,3 +2423,38 @@ section#method.navy {
     margin-bottom: 14px !important;
   }
 }
+
+
+/* FINAL HERO BLOCK POSITION:
+   The eyebrow-to-title gap is now right. This lowers the whole hero copy block
+   on normal screens and mobile so "ACCESS ACTING STUDIO" does not begin too high.
+   Very wide monitors keep the original vertical balance. */
+@media (max-width: 1799px) {
+  .hero-copy {
+    transform: translateY(64px) !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .hero-copy {
+    transform: translateY(54px) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-copy {
+    transform: translateY(42px) !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-copy {
+    transform: translateY(34px) !important;
+  }
+}
+
+@media (min-width: 1800px) {
+  .hero-copy {
+    transform: none !important;
+  }
+}
