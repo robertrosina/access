@@ -16,26 +16,211 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=generic-teacher-imdb-20260621" />
+  <link rel="stylesheet" href="style.css?v=favicon-body-20260626" />
 
   <style>
     /* FINAL BALANCED MOBILE TYPE INLINE */
     @media (max-width: 760px), (hover: none) and (pointer: coarse) {
-      body { font-size: 17.5px !important; line-height: 1.62 !important; }
+      body { font-size: 18.5px !important; line-height: 1.68 !important; }
       p, li, .prose, .prose p, .section-head > p:not(.eyebrow), .section-head p:last-child,
       .founders-head > p:not(.eyebrow), .founder-card p:not(.eyebrow), .method-cards p,
       .pathway-step p, .course-details span, .feature-list li, .notice, .cta-card p,
       .form-note, .site-footer p {
-        font-size: 17.5px !important;
-        line-height: 1.62 !important;
+        font-size: 18.5px !important;
+        line-height: 1.68 !important;
       }
-      .hero-lead { font-size: 1.36rem !important; line-height: 1.34 !important; }
+      .hero-lead { font-size: 1.42rem !important; line-height: 1.38 !important; }
       .eyebrow { font-size: 0.74rem !important; line-height: 1.3 !important; }
       .button { font-size: 0.86rem !important; }
     }
+
+
+    /* FACULTY SECTION ADDITIONS */
+    @media (min-width: 1020px) {
+      #faculty .founder-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    #faculty .founder-profile-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 0 0.85rem;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+
+    /* PASSWORD GATE */
+    body.password-locked {
+      min-height: 100vh;
+      overflow: hidden;
+      background: #102A43;
+    }
+    body.password-locked .site-header,
+    body.password-locked main,
+    body.password-locked .site-footer,
+    body.password-locked .mobile-menu {
+      display: none !important;
+    }
+    body.password-locked.password-ready .splash-screen {
+      display: none !important;
+    }
+    .password-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background:
+        radial-gradient(circle at top, rgba(222, 178, 90, 0.14), transparent 34rem),
+        linear-gradient(135deg, #061927 0%, #102A43 48%, #07131f 100%);
+      color: #f7efe1;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body.password-locked.password-ready .password-gate {
+      display: flex;
+    }
+    .password-card {
+      width: min(100%, 430px);
+      padding: clamp(1.6rem, 5vw, 2.4rem);
+      border: 1px solid rgba(222, 178, 90, 0.35);
+      border-radius: 22px;
+      background: rgba(6, 25, 39, 0.9);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.38);
+      text-align: center;
+      backdrop-filter: blur(14px);
+    }
+    .password-card .eyebrow {
+      color: #deb25a;
+      margin: 0 0 0.7rem;
+    }
+    .password-card h1 {
+      margin: 0 0 0.75rem;
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: clamp(1.85rem, 6vw, 2.55rem);
+      line-height: 1.08;
+    }
+    .password-card p {
+      margin: 0 0 1.35rem;
+      color: rgba(247, 239, 225, 0.78);
+      line-height: 1.55;
+    }
+    .password-form {
+      display: grid;
+      gap: 0.85rem;
+    }
+    .password-form label {
+      text-align: left;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(247, 239, 225, 0.82);
+    }
+    .password-form input {
+      width: 100%;
+      margin-top: 0.45rem;
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(247, 239, 225, 0.28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font: inherit;
+      outline: none;
+    }
+    .password-form input:focus {
+      border-color: rgba(222, 178, 90, 0.85);
+      box-shadow: 0 0 0 4px rgba(222, 178, 90, 0.16);
+    }
+    .password-form button {
+      min-height: 48px;
+      border: 0;
+      border-radius: 999px;
+      background: #deb25a;
+      color: #061927;
+      font: inherit;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .password-form button:hover,
+    .password-form button:focus-visible {
+      filter: brightness(1.06);
+    }
+    .password-error {
+      min-height: 1.35em;
+      margin: 0.15rem 0 0;
+      color: #ffb4a8;
+      font-size: 0.92rem;
+    }
+
+
+    /* FINAL READABILITY PATCH */
+    body {
+      font-size: 18px;
+      line-height: 1.64;
+    }
+    p,
+    li,
+    .prose,
+    .prose p,
+    .section-head > p:not(.eyebrow),
+    .section-head p:last-child,
+    .founders-head > p:not(.eyebrow),
+    .founder-card p:not(.eyebrow),
+    .method-cards p,
+    .pathway-step p,
+    .course-details span,
+    .feature-list li,
+    .notice,
+    .cta-card p,
+    .form-note,
+    .site-footer p {
+      font-size: 18.5px;
+      line-height: 1.68;
+    }
+    .hero-lead {
+      font-size: clamp(1.32rem, 2.45vw, 1.84rem);
+      line-height: 1.38;
+    }
+    @media (max-width: 760px), (hover: none) and (pointer: coarse) {
+      body { font-size: 18.5px !important; line-height: 1.68 !important; }
+      p, li, .prose, .prose p, .section-head > p:not(.eyebrow), .section-head p:last-child,
+      .founders-head > p:not(.eyebrow), .founder-card p:not(.eyebrow), .method-cards p,
+      .pathway-step p, .course-details span, .feature-list li, .notice, .cta-card p,
+      .form-note, .site-footer p {
+        font-size: 18.5px !important;
+        line-height: 1.68 !important;
+      }
+    }
+
   </style>
 </head>
-<body class="splash-loading">
+<body class="splash-loading password-locked">
+
+  <div class="password-gate" role="dialog" aria-modal="true" aria-labelledby="password-title">
+    <div class="password-card">
+      <p class="eyebrow">Private preview</p>
+      <h1 id="password-title">Access Acting Studio</h1>
+      <p>Enter the site password to continue.</p>
+      <form class="password-form" id="password-form" autocomplete="off">
+        <label for="site-password">
+          Password
+          <input id="site-password" name="password" type="password" inputmode="text" autocomplete="current-password" required>
+        </label>
+        <button type="submit">Enter site</button>
+        <p class="password-error" id="password-error" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
   <div class="splash-screen" aria-hidden="true">
     <div class="splash-inner">
       <img class="splash-mark" src="images/logo.png" alt="" />
@@ -55,8 +240,8 @@
     </a>
 
     <nav class="nav" aria-label="Primary navigation">
-      <a href="#founders">FOUNDERS</a>
       <a href="#visuals">APPROACH</a>
+      <a href="#faculty">FACULTY</a>
       <a href="#weekend">WEEKEND INTENSIVE</a>
       <a href="#pathway">STUDY</a>
       <a class="nav-cta" href="#enquire">ENQUIRE NOW</a>
@@ -72,8 +257,8 @@
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <button class="mobile-menu-close" type="button" aria-label="Close menu">&times;</button>
     <nav class="mobile-menu-nav" aria-label="Mobile navigation">
-      <a href="#founders">FOUNDERS</a>
       <a href="#visuals">APPROACH</a>
+      <a href="#faculty">FACULTY</a>
       <a href="#weekend">WEEKEND INTENSIVE</a>
       <a href="#pathway">STUDY</a>
       <a class="mobile-nav-cta" href="#enquire">ENQUIRE NOW</a>
@@ -97,51 +282,6 @@
         </div>
       </div>
     </section>
-
-
-    <section id="founders" class="section-pad founders-section cream">
-  <div class="container">
-    <div class="section-head founders-head">
-      <p class="eyebrow">About the founders</p>
-      <h2>Screen / Acting</h2>
-<p>Founded by John Pitt and Robert Rosina, <strong>Access Acting Studio</strong> is a screen-focused acting school combining practical acting methodology with production-led storytelling.</p>
-    </div>
-
-    <div class="founder-grid">
-		
-      <article class="founder-card">
-        <figure class="portrait-photo">
-          <img src="images/teacher-placeholder.jpg" alt="Teacher Name placeholder headshot." />
-        </figure>
-        <p class="eyebrow">Professional Acting Authority</p>
-        <h3>John Pitt</h3>
-        <div class="founder-links" aria-label="Teacher IMDb link">
-          <a class="founder-link imdb-link" href="https://www.imdb.com/" target="_blank" rel="noopener noreferrer" aria-label="Teacher profile on IMDb">
-            <img src="images/imdb-icon.png" alt="IMDb" />
-          </a>
-        </div>
-        <p>John Pitt is a professional actor and screen acting teacher with experience across television, film, and theatre. He brings students a working actor’s understanding of preparation, continuity, adjustment, camera discipline, professional screen standards, and story service.</p>
-      </article>
-
-
-	
-      <article class="founder-card">
-        <figure class="portrait-photo">
-          <img src="images/robert-rosina-headshot.jpg" alt="Robert Rosina headshot." />
-        </figure>
-        <p class="eyebrow">Film Production Authority</p>
-        <h3>Robert Rosina</h3>
-        <div class="founder-links" aria-label="Robert Rosina links">
-          <a class="founder-link" href="https://www.linkedin.com/in/robert-rosina/" target="_blank" rel="noopener noreferrer" aria-label="Robert Rosina on LinkedIn">
-            <img src="images/linkedin-icon.png" alt="LinkedIn" />
-          </a>
-        </div>
-        <p>Robert Rosina brings a production-focused approach to actor training, shaped by a degree in filmmaking, broad study of acting technique, and professional experience in strategic communication. His teaching focuses on production-focused actor training, technique foundations, scene construction, film studies, and narrative theory.</p>
-      </article>
-	  
-	      </div>
-  </div>
-</section>
 
 
     <section id="visuals" class="section-pad visual-section">
@@ -242,6 +382,61 @@
         </article>
               </div>
     </section>
+
+
+    <section id="faculty" class="section-pad founders-section cream">
+  <div class="container">
+    <div class="section-head founders-head">
+      <p class="eyebrow">Faculty</p>
+      <h2>Screen / Voice / Acting</h2>
+<p><strong>Access Acting Studio</strong> brings together working screen, production, and voice specialists to train actors in truthful behaviour, camera discipline, vocal presence, and story service.</p>
+    </div>
+
+    <div class="founder-grid">
+      <article class="founder-card">
+        <figure class="portrait-photo">
+          <img src="images/david-berry-headshot.jpg" alt="David Berry headshot." />
+        </figure>
+        <p class="eyebrow">Professional Acting Authority</p>
+        <h3>David Berry</h3>
+        <div class="founder-links" aria-label="David Berry links">
+          <a class="founder-link imdb-link" href="https://www.imdb.com/name/nm4885081/" target="_blank" rel="noopener noreferrer" aria-label="David Berry on IMDb">
+            <img src="images/imdb-icon.png" alt="IMDb" />
+          </a>
+        </div>
+        <p>David Berry is an internationally recognised actor whose work spans television, film, and theatre. He is best known for his standout ongoing role as Lord John Grey in the global series <em>Outlander</em> and as James Bligh in the award-winning series <em>A Place to Call Home</em>. He brings students a working actor’s understanding of preparation, continuity, adjustment, camera discipline, professional screen standards, and story service.</p>
+      </article>
+
+
+      <article class="founder-card">
+        <figure class="portrait-photo">
+          <img src="images/daniel-belle-headshot.jpg" alt="Daniel Belle headshot." />
+        </figure>
+        <p class="eyebrow">Head of Voice</p>
+        <h3>Daniel Belle</h3>
+        <div class="founder-links" aria-label="Daniel Belle links">
+          <a class="founder-profile-link" href="https://opera.org.au/artist/daniel-belle/" target="_blank" rel="noopener noreferrer" aria-label="Daniel Belle Opera Australia profile">Opera Australia</a>
+        </div>
+        <p>Daniel Belle is a musical theatre and concert performer with credits across Opera Australia, <em>Les Misérables</em>, <em>My Fair Lady</em>, <em>Cinderella</em>, and The Ten Tenors. As Head of Voice, he helps actors build vocal presence, breath, resonance, phrasing, musicality, stamina, and confidence inside performance.</p>
+      </article>
+	  
+      <article class="founder-card">
+        <figure class="portrait-photo">
+          <img src="images/robert-rosina-headshot.jpg" alt="Robert Rosina headshot." />
+        </figure>
+        <p class="eyebrow">Film Production Authority</p>
+        <h3>Robert Rosina</h3>
+        <div class="founder-links" aria-label="Robert Rosina links">
+          <a class="founder-link" href="https://www.linkedin.com/in/robert-rosina/" target="_blank" rel="noopener noreferrer" aria-label="Robert Rosina on LinkedIn">
+            <img src="images/linkedin-icon.png" alt="LinkedIn" />
+          </a>
+        </div>
+        <p>Robert Rosina brings a production-focused approach to actor training, shaped by a degree in filmmaking, broad study of acting technique, and professional experience in strategic communication. His teaching focuses on production-focused actor training, technique foundations, scene construction, film studies, and narrative theory.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
 
 
     <section id="weekend" class="section-pad">
@@ -382,64 +577,119 @@
     </div>
   </footer>
 
+
   <script>
-    const splashScreen = document.querySelector('.splash-screen');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    (function () {
+      const PASSWORD_HASH = '4ac3b3d32e21347f103798fade6d07ca08d1ff59fa8274768292fcd2d8ecc745';
+      const STORAGE_KEY = 'accessActingStudioUnlocked';
+      const gate = document.querySelector('.password-gate');
+      const form = document.getElementById('password-form');
+      const passwordInput = document.getElementById('site-password');
+      const error = document.getElementById('password-error');
+      const splashScreen = document.querySelector('.splash-screen');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (reducedMotion) {
-      document.body.classList.remove('splash-loading');
-      splashScreen?.remove();
-    } else {
-      window.addEventListener('load', () => {
-        window.setTimeout(() => {
-          document.body.classList.remove('splash-loading');
-        }, 4100);
+      function finishSplash() {
+        document.body.classList.remove('splash-loading');
+        splashScreen?.remove();
+      }
 
-        window.setTimeout(() => {
-          splashScreen?.remove();
-        }, 5000);
+      function showPasswordGate() {
+        document.body.classList.add('password-ready');
+        window.setTimeout(() => passwordInput?.focus(), 50);
+      }
+
+      function openSite() {
+        sessionStorage.setItem(STORAGE_KEY, 'true');
+        document.body.classList.remove('password-locked', 'password-ready');
+        gate?.remove();
+        finishSplash();
+      }
+
+      async function sha256(value) {
+        const encoded = new TextEncoder().encode(value);
+        const digest = await crypto.subtle.digest('SHA-256', encoded);
+        return Array.from(new Uint8Array(digest))
+          .map((byte) => byte.toString(16).padStart(2, '0'))
+          .join('');
+      }
+
+      if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
+        openSite();
+      } else if (reducedMotion) {
+        finishSplash();
+        showPasswordGate();
+      } else {
+        window.addEventListener('load', () => {
+          window.setTimeout(() => {
+            document.body.classList.remove('splash-loading');
+          }, 4100);
+
+          window.setTimeout(() => {
+            splashScreen?.remove();
+            showPasswordGate();
+          }, 5000);
+        });
+      }
+
+      form?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        error.textContent = '';
+
+        try {
+          const attemptHash = await sha256(passwordInput.value.trim());
+          if (attemptHash === PASSWORD_HASH) {
+            openSite();
+          } else {
+            error.textContent = 'Incorrect password.';
+            passwordInput.value = '';
+            passwordInput.focus();
+          }
+        } catch (authError) {
+          error.textContent = 'Password check failed in this browser.';
+        }
       });
-    }
 
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuClose = document.querySelector('.mobile-menu-close');
-    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-nav a');
+      const menuToggle = document.querySelector('.menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuClose = document.querySelector('.mobile-menu-close');
+      const mobileMenuLinks = document.querySelectorAll('.mobile-menu-nav a');
 
-    function openMobileMenu() {
-      mobileMenu.classList.add('is-open');
-      document.body.classList.add('menu-open');
-      menuToggle.setAttribute('aria-expanded', 'true');
-      mobileMenu.setAttribute('aria-hidden', 'false');
-      mobileMenuClose.focus();
-    }
-
-    function closeMobileMenu() {
-      mobileMenu.classList.remove('is-open');
-      document.body.classList.remove('menu-open');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-    }
-
-    menuToggle.addEventListener('click', openMobileMenu);
-    mobileMenuClose.addEventListener('click', closeMobileMenu);
-    mobileMenuLinks.forEach((link) => link.addEventListener('click', closeMobileMenu));
-
-    mobileMenu.addEventListener('click', (event) => {
-      if (event.target === mobileMenu) closeMobileMenu();
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && mobileMenu.classList.contains('is-open')) {
-        closeMobileMenu();
+      function openMobileMenu() {
+        mobileMenu.classList.add('is-open');
+        document.body.classList.add('menu-open');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        mobileMenuClose.focus();
       }
-    });
 
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 980 && mobileMenu.classList.contains('is-open')) {
-        closeMobileMenu();
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('is-open');
+        document.body.classList.remove('menu-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
       }
-    });
+
+      menuToggle?.addEventListener('click', openMobileMenu);
+      mobileMenuClose?.addEventListener('click', closeMobileMenu);
+      mobileMenuLinks.forEach((link) => link.addEventListener('click', closeMobileMenu));
+
+      mobileMenu?.addEventListener('click', (event) => {
+        if (event.target === mobileMenu) closeMobileMenu();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && mobileMenu?.classList.contains('is-open')) {
+          closeMobileMenu();
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 980 && mobileMenu?.classList.contains('is-open')) {
+          closeMobileMenu();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
