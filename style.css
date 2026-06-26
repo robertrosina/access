@@ -2643,3 +2643,264 @@ main section:not(.hero) p:not(.eyebrow), main section:not(.hero) li, main sectio
   .hero h1 { font-size: clamp(3rem, 13vw, 4.8rem) !important; }
   .hero-lead { font-size: 1.42rem !important; line-height: 1.38 !important; }
 }
+
+/* FINAL TYPE TUNING — slightly smaller across all breakpoints */
+html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      font-size: 21px !important;
+      line-height: 1.56 !important;
+    }
+
+    main section:not(.hero) p:not(.eyebrow),
+    main section:not(.hero) li,
+    main section:not(.hero) .prose,
+    main section:not(.hero) .prose p,
+    main section:not(.hero) .section-head > p:not(.eyebrow),
+    main section:not(.hero) .section-head p:last-child,
+    main section:not(.hero) .founders-head > p:not(.eyebrow),
+    main section:not(.hero) .founder-card p:not(.eyebrow),
+    main section:not(.hero) .method-cards p,
+    main section:not(.hero) .pathway-step p,
+    main section:not(.hero) .course-details span,
+    main section:not(.hero) .feature-list li,
+    main section:not(.hero) .notice,
+    main section:not(.hero) .cta-card p,
+    .form-note,
+    .site-footer p,
+    .password-card p,
+    input,
+    textarea {
+      font-size: clamp(1.26rem, 1.22vw, 1.42rem) !important;
+      line-height: 1.56 !important;
+    }
+
+    .visual-section .prose p,
+    #faculty .section-head p:not(.eyebrow),
+    .founder-card p:not(.eyebrow),
+    .method-cards p,
+    .course-panel p,
+    .feature-list li {
+      font-size: clamp(1.32rem, 1.30vw, 1.48rem) !important;
+      line-height: 1.52 !important;
+    }
+
+    .eyebrow,
+    .card-kicker,
+    .image-card figcaption span,
+    .photo-card figcaption span,
+    .course-date span,
+    .password-form label,
+    .enquiry-form label {
+      font-size: 0.9rem !important;
+      line-height: 1.34 !important;
+    }
+
+    .site-header .nav,
+    .mobile-menu-nav,
+    .mobile-menu-nav a,
+    .button,
+    .nav-cta,
+    .mobile-nav-cta,
+    .password-form button {
+      font-size: 0.98rem !important;
+    }
+
+    .two-col h2,
+    .section-head h2,
+    .cta-card h2 {
+      font-size: clamp(2.6rem, 4.3vw, 4.55rem) !important;
+      line-height: 1.08 !important;
+    }
+
+    .method-cards h3,
+    .pathway-step h3,
+    .course-panel h3,
+    .founder-card h3 {
+      font-size: clamp(1.78rem, 2.22vw, 2.22rem) !important;
+      line-height: 1.12 !important;
+    }
+
+    .hero h1 {
+      font-size: clamp(4rem, 7.6vw, 7rem) !important;
+      line-height: 1.06 !important;
+    }
+
+    .hero-lead {
+      font-size: clamp(1.26rem, 2.3vw, 1.76rem) !important;
+      line-height: 1.38 !important;
+    }
+
+    @media (max-width: 760px), (hover: none) and (pointer: coarse) {
+      body {
+        font-size: 21px !important;
+        line-height: 1.54 !important;
+      }
+
+      main section:not(.hero) p:not(.eyebrow),
+      main section:not(.hero) li,
+      main section:not(.hero) .prose,
+      main section:not(.hero) .prose p,
+      main section:not(.hero) .section-head > p:not(.eyebrow),
+      main section:not(.hero) .section-head p:last-child,
+      main section:not(.hero) .founders-head > p:not(.eyebrow),
+      main section:not(.hero) .founder-card p:not(.eyebrow),
+      main section:not(.hero) .method-cards p,
+      main section:not(.hero) .pathway-step p,
+      main section:not(.hero) .course-details span,
+      main section:not(.hero) .feature-list li,
+      main section:not(.hero) .notice,
+      main section:not(.hero) .cta-card p,
+      .form-note,
+      .site-footer p,
+      .password-card p,
+      input,
+      textarea {
+        font-size: 21px !important;
+        line-height: 1.52 !important;
+      }
+
+      .visual-section .prose p,
+      #faculty .section-head p:not(.eyebrow),
+      .founder-card p:not(.eyebrow),
+      .method-cards p,
+      .course-panel p,
+      .feature-list li {
+        font-size: 22px !important;
+        line-height: 1.48 !important;
+      }
+
+      .two-col h2,
+      .section-head h2,
+      .cta-card h2 {
+        font-size: clamp(2.42rem, 10.5vw, 3.55rem) !important;
+        line-height: 1.08 !important;
+      }
+
+      .method-cards h3,
+      .pathway-step h3,
+      .course-panel h3,
+      .founder-card h3 {
+        font-size: 1.88rem !important;
+        line-height: 1.12 !important;
+      }
+
+      .eyebrow,
+      .card-kicker,
+      .image-card figcaption span,
+      .photo-card figcaption span,
+      .course-date span,
+      .password-form label,
+      .enquiry-form label {
+        font-size: 0.9rem !important;
+      }
+
+      .site-header .nav,
+      .mobile-menu-nav,
+      .mobile-menu-nav a,
+      .button,
+      .nav-cta,
+      .mobile-nav-cta,
+      .password-form button {
+        font-size: 1rem !important;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.88rem, 12.4vw, 4.55rem) !important;
+      }
+
+      .hero-lead {
+        font-size: 1.35rem !important;
+        line-height: 1.36 !important;
+      }
+    }
+
+    @media (min-width: 761px) {
+      body {
+        font-size: 19px !important;
+        line-height: 1.56 !important;
+      }
+
+      main section:not(.hero) p:not(.eyebrow),
+      main section:not(.hero) li,
+      main section:not(.hero) .prose,
+      main section:not(.hero) .prose p,
+      main section:not(.hero) .section-head > p:not(.eyebrow),
+      main section:not(.hero) .section-head p:last-child,
+      main section:not(.hero) .founders-head > p:not(.eyebrow),
+      main section:not(.hero) .founder-card p:not(.eyebrow),
+      main section:not(.hero) .method-cards p,
+      main section:not(.hero) .pathway-step p,
+      main section:not(.hero) .course-details span,
+      main section:not(.hero) .feature-list li,
+      main section:not(.hero) .notice,
+      main section:not(.hero) .cta-card p,
+      .form-note,
+      .site-footer p,
+      .password-card p,
+      input,
+      textarea {
+        font-size: clamp(1.18rem, 1.1vw, 1.32rem) !important;
+        line-height: 1.56 !important;
+      }
+
+      .visual-section .prose p,
+      #faculty .section-head p:not(.eyebrow),
+      .founder-card p:not(.eyebrow),
+      .method-cards p,
+      .course-panel p,
+      .feature-list li {
+        font-size: clamp(1.24rem, 1.18vw, 1.38rem) !important;
+        line-height: 1.52 !important;
+      }
+
+      .eyebrow,
+      .card-kicker,
+      .image-card figcaption span,
+      .photo-card figcaption span,
+      .course-date span,
+      .password-form label,
+      .enquiry-form label {
+        font-size: 0.84rem !important;
+        line-height: 1.34 !important;
+      }
+
+      .site-header .nav,
+      .mobile-menu-nav,
+      .mobile-menu-nav a,
+      .button,
+      .nav-cta,
+      .mobile-nav-cta,
+      .password-form button {
+        font-size: 0.94rem !important;
+      }
+
+      .two-col h2,
+      .section-head h2,
+      .cta-card h2 {
+        font-size: clamp(2.48rem, 3.95vw, 4.28rem) !important;
+        line-height: 1.08 !important;
+      }
+
+      .method-cards h3,
+      .pathway-step h3,
+      .course-panel h3,
+      .founder-card h3 {
+        font-size: clamp(1.68rem, 2.02vw, 2.08rem) !important;
+        line-height: 1.12 !important;
+      }
+
+      .hero h1 {
+        font-size: clamp(4rem, 7.6vw, 7rem) !important;
+        line-height: 1.06 !important;
+      }
+
+      .hero-lead {
+        font-size: clamp(1.26rem, 2.3vw, 1.76rem) !important;
+        line-height: 1.38 !important;
+      }
+    }
+

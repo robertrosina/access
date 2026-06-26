@@ -233,6 +233,87 @@
       line-height: 1.35 !important;
     }
 
+
+
+    /* WELCOME VIDEO EMBED */
+    .intro-copy {
+      max-width: 34rem;
+      margin-top: -0.15rem;
+      color: inherit;
+    }
+
+    .intro-video-wrap {
+      position: relative;
+      width: min(100%, 720px);
+      margin: 0;
+      border: 1px solid rgba(222, 178, 90, 0.28);
+      border-radius: 24px;
+      background: #061927;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+      overflow: hidden;
+    }
+
+    .intro-video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #061927;
+      object-fit: cover;
+    }
+
+    .intro-video-play {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 3;
+      width: clamp(68px, 10vw, 92px);
+      height: clamp(68px, 10vw, 92px);
+      border: 1px solid rgba(247, 239, 225, 0.58);
+      border-radius: 999px;
+      background: rgba(6, 25, 39, 0.72);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.34);
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      transition: opacity 180ms ease, transform 180ms ease, background 180ms ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .intro-video-play::before {
+      content: "";
+      position: absolute;
+      left: 53%;
+      top: 50%;
+      width: 0;
+      height: 0;
+      border-top: clamp(13px, 2vw, 18px) solid transparent;
+      border-bottom: clamp(13px, 2vw, 18px) solid transparent;
+      border-left: clamp(20px, 3vw, 28px) solid #f7efe1;
+      transform: translate(-43%, -50%);
+    }
+
+    .intro-video-play:hover,
+    .intro-video-play:focus-visible {
+      background: rgba(16, 42, 67, 0.9);
+      transform: translate(-50%, -50%) scale(1.04);
+      outline: none;
+    }
+
+    .intro-video-wrap.is-playing .intro-video-play {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.94);
+    }
+
+    @media (max-width: 760px), (hover: none) and (pointer: coarse) {
+      .intro-copy {
+        max-width: 100%;
+      }
+
+      .intro-video-wrap {
+        border-radius: 18px;
+      }
+    }
+
     /* FACULTY SECTION ADDITIONS */
     @media (min-width: 1020px) {
       #faculty .founder-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -516,11 +597,14 @@
         <div>
           <p class="eyebrow"></p>
           <h2>Where imagination meets craft.</h2>
+          <p class="intro-copy">Access is built around a central problem in screen acting: the gap between what an actor feels and what the audience receives. A performance may be deeply felt inside the actor and still become unclear on screen, weak in the voice, or disconnected from the story. Our training closes that gap. Actors learn to turn impulse into behaviour, thought into voice, and imagination into choices the camera can read.</p>
         </div>
-        <div class="prose">
-          <p>Access is built around a central problem in screen acting: the gap between what an actor feels and what the audience receives. A performance may be deeply felt inside the actor and still become unclear on screen, weak in the voice, or disconnected from the story. Our training closes that gap. Actors learn to turn impulse into behaviour, thought into voice, and imagination into choices the camera can read.</p>
-          <p>Our screen acting lead brings the pressure and discipline of professional performance: truthful behaviour, listening, adjustment, continuity, and command under camera conditions. The school’s voice lead trains the actor to let breath, sound, presence, and speech carry thought and feeling with clarity. The production lead brings the filmmaker’s eye: scene structure, story pressure, shot awareness, and what actually lands in the frame. Students rehearse, film, watch, receive notes, and return to the work with greater command.</p>
-		 <p><strong>The result is an actor who can feel truthfully, speak with force and freedom, and shape the performance so it serves the story on screen.</strong></p>
+        <div class="intro-video-wrap">
+          <video class="intro-video" controls preload="metadata" playsinline aria-label="Access Acting Studio welcome video">
+            <source src="videos/mockup-welcome.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <button class="intro-video-play" type="button" aria-label="Play welcome video"></button>
         </div>
       </div>
 
@@ -877,6 +961,24 @@
           error.textContent = 'Password check failed in this browser.';
         }
       });
+
+      const introVideoWrap = document.querySelector('.intro-video-wrap');
+      const introVideo = document.querySelector('.intro-video');
+      const introVideoPlay = document.querySelector('.intro-video-play');
+
+      function syncIntroVideoPlayState() {
+        if (!introVideo || !introVideoWrap) return;
+        introVideoWrap.classList.toggle('is-playing', !introVideo.paused && !introVideo.ended);
+      }
+
+      introVideoPlay?.addEventListener('click', () => {
+        introVideo?.play();
+      });
+
+      introVideo?.addEventListener('play', syncIntroVideoPlayState);
+      introVideo?.addEventListener('pause', syncIntroVideoPlayState);
+      introVideo?.addEventListener('ended', syncIntroVideoPlayState);
+      syncIntroVideoPlayState();
 
       const menuToggle = document.querySelector('.menu-toggle');
       const mobileMenu = document.getElementById('mobile-menu');
