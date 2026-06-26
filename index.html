@@ -19,40 +19,234 @@
   <link rel="stylesheet" href="style.css?v=mobile-readable-lock-20260626" />
 
   <style>
-    /* FINAL BALANCED MOBILE TYPE INLINE */
-    @media (max-width: 760px), (hover: none) and (pointer: coarse) {
-      body { font-size: 18.5px !important; line-height: 1.68 !important; }
-      p, li, .prose, .prose p, .section-head > p:not(.eyebrow), .section-head p:last-child,
-      .founders-head > p:not(.eyebrow), .founder-card p:not(.eyebrow), .method-cards p,
-      .pathway-step p, .course-details span, .feature-list li, .notice, .cta-card p,
-      .form-note, .site-footer p {
-        font-size: 18.5px !important;
-        line-height: 1.68 !important;
-      }
-      .hero-lead { font-size: 1.42rem !important; line-height: 1.38 !important; }
-      .eyebrow { font-size: 0.74rem !important; line-height: 1.3 !important; }
-      .button { font-size: 0.86rem !important; }
+    /* ACCESS ACTING STUDIO — CLEAN TYPE SYSTEM
+       One scale, one mobile scale, no accumulated font patches. */
+
+    :root {
+      --font-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-display: "Libre Baskerville", Georgia, serif;
+
+      --type-body: clamp(1.04rem, 0.22vw + 1rem, 1.15rem);
+      --type-body-large: clamp(1.08rem, 0.28vw + 1rem, 1.22rem);
+      --type-small: clamp(0.78rem, 0.15vw + 0.74rem, 0.88rem);
+      --type-button: clamp(0.86rem, 0.14vw + 0.82rem, 0.95rem);
+
+      --type-hero: clamp(3.8rem, 7.2vw, 6.8rem);
+      --type-hero-lead: clamp(1.22rem, 1.45vw, 1.58rem);
+      --type-h2: clamp(2.28rem, 3.4vw, 4.1rem);
+      --type-h3: clamp(1.45rem, 1.35vw, 1.9rem);
+      --type-quote: clamp(2.1rem, 4.2vw, 4.75rem);
+
+      --leading-tight: 1.08;
+      --leading-heading: 1.12;
+      --leading-body: 1.62;
+      --leading-compact: 1.42;
+      --tracking-label: 0.095em;
     }
 
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--type-body);
+      line-height: var(--leading-body);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      font-kerning: normal;
+    }
+
+    h1,
+    h2,
+    h3,
+    blockquote {
+      text-wrap: balance;
+    }
+
+    p,
+    li {
+      text-wrap: pretty;
+    }
+
+    main section:not(.hero) p:not(.eyebrow),
+    main section:not(.hero) li,
+    main section:not(.hero) .prose,
+    main section:not(.hero) .prose p,
+    main section:not(.hero) .section-head > p:not(.eyebrow),
+    main section:not(.hero) .founders-head > p:not(.eyebrow),
+    main section:not(.hero) .founder-card p:not(.eyebrow),
+    main section:not(.hero) .method-cards p,
+    main section:not(.hero) .pathway-step p,
+    main section:not(.hero) .course-details span,
+    main section:not(.hero) .feature-list li,
+    main section:not(.hero) .notice,
+    main section:not(.hero) .cta-card p,
+    .form-note,
+    .site-footer p,
+    .password-card p,
+    input,
+    textarea {
+      font-family: var(--font-sans) !important;
+      font-size: var(--type-body) !important;
+      line-height: var(--leading-body) !important;
+      letter-spacing: 0 !important;
+    }
+
+    .visual-section .prose p,
+    #faculty .section-head p:not(.eyebrow),
+    .founder-card p:not(.eyebrow),
+    .method-cards p,
+    .course-panel p,
+    .feature-list li,
+    .notice {
+      font-size: var(--type-body-large) !important;
+      line-height: 1.56 !important;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: var(--type-hero) !important;
+      line-height: var(--leading-tight) !important;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-lead {
+      font-size: var(--type-hero-lead) !important;
+      line-height: 1.38 !important;
+      letter-spacing: -0.01em;
+      max-width: 33ch;
+    }
+
+    .two-col h2,
+    .section-head h2,
+    .cta-card h2 {
+      font-family: var(--font-display);
+      font-size: var(--type-h2) !important;
+      line-height: var(--leading-heading) !important;
+      letter-spacing: -0.038em;
+      margin-bottom: 0.72em;
+    }
+
+    .method-cards h3,
+    .pathway-step h3,
+    .course-panel h3,
+    .founder-card h3 {
+      font-family: var(--font-display);
+      font-size: var(--type-h3) !important;
+      line-height: 1.16 !important;
+      letter-spacing: -0.025em;
+    }
+
+    .eyebrow,
+    .method-cards span,
+    .pathway-step span,
+    .card-kicker,
+    .image-card figcaption span,
+    .photo-card figcaption span,
+    .course-date span,
+    .password-form label,
+    .enquiry-form label {
+      font-family: var(--font-sans) !important;
+      font-size: var(--type-small) !important;
+      line-height: 1.32 !important;
+      font-weight: 800 !important;
+      letter-spacing: var(--tracking-label) !important;
+      text-transform: uppercase !important;
+    }
+
+    .site-header .nav,
+    .mobile-menu-nav,
+    .mobile-menu-nav a,
+    .button,
+    .nav-cta,
+    .mobile-nav-cta,
+    .password-form button,
+    .founder-profile-link {
+      font-family: var(--font-sans) !important;
+      font-size: var(--type-button) !important;
+      line-height: 1.2 !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.055em !important;
+      text-transform: uppercase !important;
+    }
+
+    .button,
+    .nav-cta,
+    .mobile-nav-cta,
+    .password-form button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-list {
+      padding-left: 1.15em;
+    }
+
+    .feature-list li + li,
+    .prose p + p,
+    .founder-card p + p,
+    .method-cards p + p {
+      margin-top: 0.76em;
+    }
+
+    .course-date strong {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 0.55vw + 1.05rem, 1.46rem) !important;
+      line-height: 1.25 !important;
+      letter-spacing: -0.018em;
+    }
+
+    .course-date em,
+    .course-details strong,
+    .photo-card figcaption strong,
+    .image-card figcaption strong,
+    .site-footer strong {
+      font-size: clamp(0.98rem, 0.2vw + 0.94rem, 1.08rem) !important;
+      line-height: var(--leading-compact) !important;
+    }
+
+    .founder-quote,
+    .founder-quote span {
+      font-family: var(--font-display);
+      font-size: var(--type-quote) !important;
+      line-height: 1.12 !important;
+      letter-spacing: -0.045em;
+    }
+
+    .quote-attribution,
+    .quote-attribution span {
+      font-family: var(--font-sans) !important;
+      font-size: clamp(0.95rem, 0.18vw + 0.9rem, 1.08rem) !important;
+      line-height: 1.42 !important;
+    }
+
+    .enquiry-form input,
+    .enquiry-form textarea,
+    .password-form input {
+      font-size: var(--type-body) !important;
+      line-height: 1.35 !important;
+    }
 
     /* FACULTY SECTION ADDITIONS */
     @media (min-width: 1020px) {
       #faculty .founder-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
+
     #faculty .founder-profile-link {
       display: inline-flex;
       align-items: center;
       min-height: 42px;
-      padding: 0 0.85rem;
+      padding: 0 0.9rem;
       border: 1px solid currentColor;
       border-radius: 999px;
       text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
     }
-
 
     /* PASSWORD GATE */
     body.password-locked {
@@ -60,15 +254,18 @@
       overflow: hidden;
       background: #102A43;
     }
+
     body.password-locked .site-header,
     body.password-locked main,
     body.password-locked .site-footer,
     body.password-locked .mobile-menu {
       display: none !important;
     }
+
     body.password-locked.password-ready .splash-screen {
       display: none !important;
     }
+
     .password-gate {
       position: fixed;
       inset: 0;
@@ -81,11 +278,13 @@
         radial-gradient(circle at top, rgba(222, 178, 90, 0.14), transparent 34rem),
         linear-gradient(135deg, #061927 0%, #102A43 48%, #07131f 100%);
       color: #f7efe1;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--font-sans);
     }
+
     body.password-locked.password-ready .password-gate {
       display: flex;
     }
+
     .password-card {
       width: min(100%, 430px);
       padding: clamp(1.6rem, 5vw, 2.4rem);
@@ -96,33 +295,35 @@
       text-align: center;
       backdrop-filter: blur(14px);
     }
+
     .password-card .eyebrow {
       color: #deb25a;
       margin: 0 0 0.7rem;
     }
+
     .password-card h1 {
       margin: 0 0 0.75rem;
-      font-family: "Libre Baskerville", Georgia, serif;
+      font-family: var(--font-display);
       font-size: clamp(1.85rem, 6vw, 2.55rem);
       line-height: 1.08;
+      letter-spacing: -0.03em;
     }
+
     .password-card p {
       margin: 0 0 1.35rem;
       color: rgba(247, 239, 225, 0.78);
-      line-height: 1.55;
     }
+
     .password-form {
       display: grid;
       gap: 0.85rem;
     }
+
     .password-form label {
       text-align: left;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
       color: rgba(247, 239, 225, 0.82);
     }
+
     .password-form input {
       width: 100%;
       margin-top: 0.45rem;
@@ -134,871 +335,99 @@
       font: inherit;
       outline: none;
     }
+
     .password-form input:focus {
       border-color: rgba(222, 178, 90, 0.85);
       box-shadow: 0 0 0 4px rgba(222, 178, 90, 0.16);
     }
+
     .password-form button {
-      min-height: 48px;
       border: 0;
       border-radius: 999px;
       background: #deb25a;
       color: #061927;
-      font: inherit;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
       cursor: pointer;
     }
+
     .password-form button:hover,
     .password-form button:focus-visible {
       filter: brightness(1.06);
     }
+
     .password-error {
       min-height: 1.35em;
       margin: 0.15rem 0 0;
       color: #ffb4a8;
-      font-size: 0.92rem;
+      font-size: 0.95rem !important;
     }
 
+    @media (max-width: 980px) {
+      :root {
+        --type-body: 1.08rem;
+        --type-body-large: 1.12rem;
+        --type-small: 0.8rem;
+        --type-button: 0.95rem;
+        --type-hero: clamp(3.05rem, 12vw, 4.65rem);
+        --type-hero-lead: 1.26rem;
+        --type-h2: clamp(2.15rem, 8.7vw, 3.2rem);
+        --type-h3: clamp(1.45rem, 5.4vw, 1.78rem);
+        --type-quote: clamp(2rem, 8.5vw, 3.3rem);
+        --leading-body: 1.58;
+      }
 
-    /* FINAL READABILITY PATCH */
-    body {
-      font-size: 18px;
-      line-height: 1.64;
-    }
-    p,
-    li,
-    .prose,
-    .prose p,
-    .section-head > p:not(.eyebrow),
-    .section-head p:last-child,
-    .founders-head > p:not(.eyebrow),
-    .founder-card p:not(.eyebrow),
-    .method-cards p,
-    .pathway-step p,
-    .course-details span,
-    .feature-list li,
-    .notice,
-    .cta-card p,
-    .form-note,
-    .site-footer p {
-      font-size: 18.5px;
-      line-height: 1.68;
-    }
-    .hero-lead {
-      font-size: clamp(1.32rem, 2.45vw, 1.84rem);
-      line-height: 1.38;
-    }
-    @media (max-width: 760px), (hover: none) and (pointer: coarse) {
-      body { font-size: 18.5px !important; line-height: 1.68 !important; }
-      p, li, .prose, .prose p, .section-head > p:not(.eyebrow), .section-head p:last-child,
-      .founders-head > p:not(.eyebrow), .founder-card p:not(.eyebrow), .method-cards p,
-      .pathway-step p, .course-details span, .feature-list li, .notice, .cta-card p,
-      .form-note, .site-footer p {
-        font-size: 18.5px !important;
-        line-height: 1.68 !important;
+      .site-header .nav {
+        font-size: 0.86rem !important;
+      }
+
+      .mobile-menu-nav a {
+        font-size: 1.08rem !important;
       }
     }
 
-
-    /* FINAL TYPE SCALE PATCH — larger page text, preserving the hero title and hero lead */
-    body {
-      font-size: 20px !important;
-      line-height: 1.72 !important;
-    }
-
-    .site-header .nav,
-    .mobile-menu-nav,
-    .mobile-menu-nav a {
-      font-size: 1.06rem !important;
-      line-height: 1.4 !important;
-    }
-
-    .button,
-    .nav-cta,
-    .mobile-nav-cta,
-    .password-form button {
-      font-size: 1rem !important;
-      min-height: 56px !important;
-    }
-
-    .eyebrow,
-    .card-kicker,
-    .image-card figcaption span,
-    .photo-card figcaption span,
-    .course-date span,
-    .password-form label,
-    .enquiry-form label {
-      font-size: 0.92rem !important;
-      line-height: 1.35 !important;
-    }
-
-    main section:not(.hero) p:not(.eyebrow),
-    main section:not(.hero) li,
-    main section:not(.hero) .prose,
-    main section:not(.hero) .prose p,
-    main section:not(.hero) .section-head > p:not(.eyebrow),
-    main section:not(.hero) .section-head p:last-child,
-    main section:not(.hero) .founders-head > p:not(.eyebrow),
-    main section:not(.hero) .founder-card p:not(.eyebrow),
-    main section:not(.hero) .method-cards p,
-    main section:not(.hero) .pathway-step p,
-    main section:not(.hero) .course-details span,
-    main section:not(.hero) .feature-list li,
-    main section:not(.hero) .notice,
-    main section:not(.hero) .cta-card p,
-    .form-note,
-    .site-footer p,
-    .password-card p,
-    input,
-    textarea {
-      font-size: 1.12rem !important;
-      line-height: 1.78 !important;
-    }
-
-    .two-col h2,
-    .section-head h2,
-    .cta-card h2 {
-      font-size: clamp(2.85rem, 4.8vw, 4.95rem) !important;
-      line-height: 1.08 !important;
-    }
-
-    .method-cards h3,
-    .pathway-step h3 {
-      font-size: 1.72rem !important;
-      line-height: 1.2 !important;
-    }
-
-    .course-panel h3 {
-      font-size: 2.25rem !important;
-      line-height: 1.15 !important;
-    }
-
-    .founder-card h3 {
-      font-size: 2.35rem !important;
-      line-height: 1.12 !important;
-    }
-
-    .founder-profile-link {
-      font-size: 0.94rem !important;
-      min-height: 48px !important;
-      padding-inline: 1.05rem !important;
-    }
-
-    .photo-card figcaption strong,
-    .image-card figcaption strong {
-      font-size: 1.28rem !important;
-      line-height: 1.3 !important;
-    }
-
-    .course-details strong {
-      font-size: 1.08rem !important;
-      line-height: 1.3 !important;
-    }
-
-    .course-date strong {
-      font-size: 1.42rem !important;
-      line-height: 1.25 !important;
-    }
-
-    .course-date em {
-      font-size: 1.08rem !important;
-      line-height: 1.45 !important;
-    }
-
-    .password-card h1 {
-      font-size: clamp(2.2rem, 6vw, 3rem) !important;
-    }
-
-    .password-error {
-      font-size: 1rem !important;
-    }
-
-    /* Preserve the hero pair Robert approved */
-    .hero h1 {
-      font-size: clamp(4.2rem, 8vw, 7.4rem) !important;
-      line-height: 1.06 !important;
-    }
-
-    .hero-lead {
-      font-size: clamp(1.32rem, 2.45vw, 1.84rem) !important;
-      line-height: 1.38 !important;
-    }
-
     @media (max-width: 760px), (hover: none) and (pointer: coarse) {
+      :root {
+        --type-body: 1.1rem;
+        --type-body-large: 1.14rem;
+        --type-small: 0.78rem;
+        --type-button: 0.92rem;
+        --type-hero: clamp(2.8rem, 12.6vw, 4.25rem);
+        --type-hero-lead: 1.22rem;
+        --type-h2: clamp(2rem, 10vw, 2.85rem);
+        --type-h3: 1.5rem;
+        --type-quote: clamp(1.95rem, 9.8vw, 3rem);
+        --leading-body: 1.56;
+      }
+
       body {
-        font-size: 20px !important;
-        line-height: 1.72 !important;
+        font-size: var(--type-body) !important;
+        line-height: var(--leading-body) !important;
       }
 
-      main section:not(.hero) p:not(.eyebrow),
-      main section:not(.hero) li,
-      main section:not(.hero) .prose,
-      main section:not(.hero) .prose p,
-      main section:not(.hero) .section-head > p:not(.eyebrow),
-      main section:not(.hero) .section-head p:last-child,
-      main section:not(.hero) .founders-head > p:not(.eyebrow),
-      main section:not(.hero) .founder-card p:not(.eyebrow),
-      main section:not(.hero) .method-cards p,
-      main section:not(.hero) .pathway-step p,
-      main section:not(.hero) .course-details span,
-      main section:not(.hero) .feature-list li,
-      main section:not(.hero) .notice,
-      main section:not(.hero) .cta-card p,
-      .form-note,
-      .site-footer p,
-      .password-card p,
-      input,
-      textarea {
-        font-size: 20px !important;
-        line-height: 1.76 !important;
+      .hero h1 {
+        letter-spacing: -0.055em;
+      }
+
+      .hero-lead {
+        max-width: 28ch;
       }
 
       .two-col h2,
       .section-head h2,
       .cta-card h2 {
-        font-size: clamp(2.45rem, 11vw, 3.65rem) !important;
-        line-height: 1.1 !important;
-      }
-
-      .method-cards h3,
-      .pathway-step h3,
-      .course-panel h3,
-      .founder-card h3 {
-        font-size: 1.9rem !important;
-        line-height: 1.15 !important;
-      }
-
-      .eyebrow,
-      .card-kicker,
-      .image-card figcaption span,
-      .photo-card figcaption span,
-      .course-date span,
-      .password-form label,
-      .enquiry-form label {
-        font-size: 0.88rem !important;
+        margin-bottom: 0.62em;
       }
 
       .button,
       .nav-cta,
       .mobile-nav-cta,
       .password-form button {
-        font-size: 1rem !important;
+        min-height: 46px;
       }
 
-      .hero h1 {
-        font-size: clamp(3rem, 13vw, 4.8rem) !important;
-      }
-
-      .hero-lead {
-        font-size: 1.42rem !important;
-        line-height: 1.38 !important;
+      .password-card {
+        border-radius: 18px;
       }
     }
-
-
-    /* ROBERT READABILITY PATCH — halfway between the previous readable size and the oversized version, preserving the hero title and hero lead */
-    main section:not(.hero) p:not(.eyebrow),
-    main section:not(.hero) li,
-    main section:not(.hero) .prose,
-    main section:not(.hero) .prose p,
-    main section:not(.hero) .section-head > p:not(.eyebrow),
-    main section:not(.hero) .section-head p:last-child,
-    main section:not(.hero) .founders-head > p:not(.eyebrow),
-    main section:not(.hero) .founder-card p:not(.eyebrow),
-    main section:not(.hero) .method-cards p,
-    main section:not(.hero) .pathway-step p,
-    main section:not(.hero) .course-details span,
-    main section:not(.hero) .feature-list li,
-    main section:not(.hero) .notice,
-    main section:not(.hero) .cta-card p,
-    .form-note,
-    .site-footer p,
-    .password-card p,
-    input,
-    textarea {
-      font-size: clamp(1.38rem, 1.65vw, 1.57rem) !important;
-      line-height: 1.62 !important;
-    }
-
-    .founder-card p:not(.eyebrow),
-    #faculty .section-head p:not(.eyebrow),
-    .method-cards p,
-    .prose p {
-      font-size: clamp(1.43rem, 1.75vw, 1.62rem) !important;
-      line-height: 1.58 !important;
-    }
-
-    .feature-list li {
-      margin-bottom: 0.58rem !important;
-    }
-
-    .method-cards article,
-    .founder-card,
-    .course-panel,
-    .pathway-step {
-      gap: 0.78rem !important;
-    }
-
-    @media (max-width: 760px), (hover: none) and (pointer: coarse) {
-      main section:not(.hero) p:not(.eyebrow),
-      main section:not(.hero) li,
-      main section:not(.hero) .prose,
-      main section:not(.hero) .prose p,
-      main section:not(.hero) .section-head > p:not(.eyebrow),
-      main section:not(.hero) .section-head p:last-child,
-      main section:not(.hero) .founders-head > p:not(.eyebrow),
-      main section:not(.hero) .founder-card p:not(.eyebrow),
-      main section:not(.hero) .method-cards p,
-      main section:not(.hero) .pathway-step p,
-      main section:not(.hero) .course-details span,
-      main section:not(.hero) .feature-list li,
-      main section:not(.hero) .notice,
-      main section:not(.hero) .cta-card p,
-      .form-note,
-      .site-footer p,
-      .password-card p,
-      input,
-      textarea {
-        font-size: 1.32rem !important;
-        line-height: 1.58 !important;
-      }
-
-      .founder-card p:not(.eyebrow),
-      #faculty .section-head p:not(.eyebrow),
-      .method-cards p,
-      .prose p {
-        font-size: 1.38rem !important;
-        line-height: 1.54 !important;
-      }
-    }
-
-
-    /* FINAL MOBILE READABILITY LOCK — resolves the older competing type rules above */
-    html {
-      -webkit-text-size-adjust: 100%;
-      text-size-adjust: 100%;
-    }
-
-    body {
-      font-size: 22px !important;
-      line-height: 1.58 !important;
-    }
-
-    main section:not(.hero) p:not(.eyebrow),
-    main section:not(.hero) li,
-    main section:not(.hero) .prose,
-    main section:not(.hero) .prose p,
-    main section:not(.hero) .section-head > p:not(.eyebrow),
-    main section:not(.hero) .section-head p:last-child,
-    main section:not(.hero) .founders-head > p:not(.eyebrow),
-    main section:not(.hero) .founder-card p:not(.eyebrow),
-    main section:not(.hero) .method-cards p,
-    main section:not(.hero) .pathway-step p,
-    main section:not(.hero) .course-details span,
-    main section:not(.hero) .feature-list li,
-    main section:not(.hero) .notice,
-    main section:not(.hero) .cta-card p,
-    .form-note,
-    .site-footer p,
-    .password-card p,
-    input,
-    textarea {
-      font-size: clamp(1.38rem, 1.35vw, 1.55rem) !important;
-      line-height: 1.58 !important;
-    }
-
-    .visual-section .prose p,
-    #faculty .section-head p:not(.eyebrow),
-    .founder-card p:not(.eyebrow),
-    .method-cards p,
-    .course-panel p,
-    .feature-list li {
-      font-size: clamp(1.45rem, 1.45vw, 1.62rem) !important;
-      line-height: 1.54 !important;
-    }
-
-    .eyebrow,
-    .card-kicker,
-    .image-card figcaption span,
-    .photo-card figcaption span,
-    .course-date span,
-    .password-form label,
-    .enquiry-form label {
-      font-size: 0.96rem !important;
-      line-height: 1.35 !important;
-    }
-
-    .site-header .nav,
-    .mobile-menu-nav,
-    .mobile-menu-nav a,
-    .button,
-    .nav-cta,
-    .mobile-nav-cta,
-    .password-form button {
-      font-size: 1.04rem !important;
-    }
-
-    .two-col h2,
-    .section-head h2,
-    .cta-card h2 {
-      font-size: clamp(2.9rem, 4.8vw, 5rem) !important;
-      line-height: 1.08 !important;
-    }
-
-    .method-cards h3,
-    .pathway-step h3,
-    .course-panel h3,
-    .founder-card h3 {
-      font-size: clamp(1.95rem, 2.5vw, 2.45rem) !important;
-      line-height: 1.12 !important;
-    }
-
-    /* Keep the approved hero title and hero lead stable */
-    .hero h1 {
-      font-size: clamp(4.2rem, 8vw, 7.4rem) !important;
-      line-height: 1.06 !important;
-    }
-
-    .hero-lead {
-      font-size: clamp(1.32rem, 2.45vw, 1.84rem) !important;
-      line-height: 1.38 !important;
-    }
-
-    @media (max-width: 760px), (hover: none) and (pointer: coarse) {
-      body {
-        font-size: 22.5px !important;
-        line-height: 1.56 !important;
-      }
-
-      main section:not(.hero) p:not(.eyebrow),
-      main section:not(.hero) li,
-      main section:not(.hero) .prose,
-      main section:not(.hero) .prose p,
-      main section:not(.hero) .section-head > p:not(.eyebrow),
-      main section:not(.hero) .section-head p:last-child,
-      main section:not(.hero) .founders-head > p:not(.eyebrow),
-      main section:not(.hero) .founder-card p:not(.eyebrow),
-      main section:not(.hero) .method-cards p,
-      main section:not(.hero) .pathway-step p,
-      main section:not(.hero) .course-details span,
-      main section:not(.hero) .feature-list li,
-      main section:not(.hero) .notice,
-      main section:not(.hero) .cta-card p,
-      .form-note,
-      .site-footer p,
-      .password-card p,
-      input,
-      textarea {
-        font-size: 22.5px !important;
-        line-height: 1.54 !important;
-      }
-
-      .visual-section .prose p,
-      #faculty .section-head p:not(.eyebrow),
-      .founder-card p:not(.eyebrow),
-      .method-cards p,
-      .course-panel p,
-      .feature-list li {
-        font-size: 23.5px !important;
-        line-height: 1.5 !important;
-      }
-
-      .two-col h2,
-      .section-head h2,
-      .cta-card h2 {
-        font-size: clamp(2.55rem, 11vw, 3.75rem) !important;
-        line-height: 1.08 !important;
-      }
-
-      .method-cards h3,
-      .pathway-step h3,
-      .course-panel h3,
-      .founder-card h3 {
-        font-size: 2rem !important;
-        line-height: 1.12 !important;
-      }
-
-      .eyebrow,
-      .card-kicker,
-      .image-card figcaption span,
-      .photo-card figcaption span,
-      .course-date span,
-      .password-form label,
-      .enquiry-form label {
-        font-size: 0.95rem !important;
-      }
-
-      .site-header .nav,
-      .mobile-menu-nav,
-      .mobile-menu-nav a,
-      .button,
-      .nav-cta,
-      .mobile-nav-cta,
-      .password-form button {
-        font-size: 1.05rem !important;
-      }
-
-      .hero h1 {
-        font-size: clamp(3rem, 13vw, 4.8rem) !important;
-      }
-
-      .hero-lead {
-        font-size: 1.42rem !important;
-        line-height: 1.38 !important;
-      }
-    }
-
-
-    /* DESKTOP BALANCE PATCH — reduces non-mobile text slightly while preserving the mobile readability lock and approved hero pair */
-    @media (min-width: 761px) {
-      body {
-        font-size: 20px !important;
-        line-height: 1.58 !important;
-      }
-
-      main section:not(.hero) p:not(.eyebrow),
-      main section:not(.hero) li,
-      main section:not(.hero) .prose,
-      main section:not(.hero) .prose p,
-      main section:not(.hero) .section-head > p:not(.eyebrow),
-      main section:not(.hero) .section-head p:last-child,
-      main section:not(.hero) .founders-head > p:not(.eyebrow),
-      main section:not(.hero) .founder-card p:not(.eyebrow),
-      main section:not(.hero) .method-cards p,
-      main section:not(.hero) .pathway-step p,
-      main section:not(.hero) .course-details span,
-      main section:not(.hero) .feature-list li,
-      main section:not(.hero) .notice,
-      main section:not(.hero) .cta-card p,
-      .form-note,
-      .site-footer p,
-      .password-card p,
-      input,
-      textarea {
-        font-size: clamp(1.28rem, 1.22vw, 1.42rem) !important;
-        line-height: 1.58 !important;
-      }
-
-      .visual-section .prose p,
-      #faculty .section-head p:not(.eyebrow),
-      .founder-card p:not(.eyebrow),
-      .method-cards p,
-      .course-panel p,
-      .feature-list li {
-        font-size: clamp(1.34rem, 1.3vw, 1.48rem) !important;
-        line-height: 1.54 !important;
-      }
-
-      .eyebrow,
-      .card-kicker,
-      .image-card figcaption span,
-      .photo-card figcaption span,
-      .course-date span,
-      .password-form label,
-      .enquiry-form label {
-        font-size: 0.9rem !important;
-        line-height: 1.35 !important;
-      }
-
-      .site-header .nav,
-      .mobile-menu-nav,
-      .mobile-menu-nav a,
-      .button,
-      .nav-cta,
-      .mobile-nav-cta,
-      .password-form button {
-        font-size: 0.98rem !important;
-      }
-
-      .two-col h2,
-      .section-head h2,
-      .cta-card h2 {
-        font-size: clamp(2.65rem, 4.25vw, 4.55rem) !important;
-        line-height: 1.08 !important;
-      }
-
-      .method-cards h3,
-      .pathway-step h3,
-      .course-panel h3,
-      .founder-card h3 {
-        font-size: clamp(1.8rem, 2.2vw, 2.22rem) !important;
-        line-height: 1.12 !important;
-      }
-
-      .hero h1 {
-        font-size: clamp(4.2rem, 8vw, 7.4rem) !important;
-        line-height: 1.06 !important;
-      }
-
-      .hero-lead {
-        font-size: clamp(1.32rem, 2.45vw, 1.84rem) !important;
-        line-height: 1.38 !important;
-      }
-    }
-
-
-    /* FINAL TYPE TUNING — slightly smaller across all breakpoints */
-    html {
-      -webkit-text-size-adjust: 100%;
-      text-size-adjust: 100%;
-    }
-
-    body {
-      font-size: 21px !important;
-      line-height: 1.56 !important;
-    }
-
-    main section:not(.hero) p:not(.eyebrow),
-    main section:not(.hero) li,
-    main section:not(.hero) .prose,
-    main section:not(.hero) .prose p,
-    main section:not(.hero) .section-head > p:not(.eyebrow),
-    main section:not(.hero) .section-head p:last-child,
-    main section:not(.hero) .founders-head > p:not(.eyebrow),
-    main section:not(.hero) .founder-card p:not(.eyebrow),
-    main section:not(.hero) .method-cards p,
-    main section:not(.hero) .pathway-step p,
-    main section:not(.hero) .course-details span,
-    main section:not(.hero) .feature-list li,
-    main section:not(.hero) .notice,
-    main section:not(.hero) .cta-card p,
-    .form-note,
-    .site-footer p,
-    .password-card p,
-    input,
-    textarea {
-      font-size: clamp(1.26rem, 1.22vw, 1.42rem) !important;
-      line-height: 1.56 !important;
-    }
-
-    .visual-section .prose p,
-    #faculty .section-head p:not(.eyebrow),
-    .founder-card p:not(.eyebrow),
-    .method-cards p,
-    .course-panel p,
-    .feature-list li {
-      font-size: clamp(1.32rem, 1.30vw, 1.48rem) !important;
-      line-height: 1.52 !important;
-    }
-
-    .eyebrow,
-    .card-kicker,
-    .image-card figcaption span,
-    .photo-card figcaption span,
-    .course-date span,
-    .password-form label,
-    .enquiry-form label {
-      font-size: 0.9rem !important;
-      line-height: 1.34 !important;
-    }
-
-    .site-header .nav,
-    .mobile-menu-nav,
-    .mobile-menu-nav a,
-    .button,
-    .nav-cta,
-    .mobile-nav-cta,
-    .password-form button {
-      font-size: 0.98rem !important;
-    }
-
-    .two-col h2,
-    .section-head h2,
-    .cta-card h2 {
-      font-size: clamp(2.6rem, 4.3vw, 4.55rem) !important;
-      line-height: 1.08 !important;
-    }
-
-    .method-cards h3,
-    .pathway-step h3,
-    .course-panel h3,
-    .founder-card h3 {
-      font-size: clamp(1.78rem, 2.22vw, 2.22rem) !important;
-      line-height: 1.12 !important;
-    }
-
-    .hero h1 {
-      font-size: clamp(4rem, 7.6vw, 7rem) !important;
-      line-height: 1.06 !important;
-    }
-
-    .hero-lead {
-      font-size: clamp(1.26rem, 2.3vw, 1.76rem) !important;
-      line-height: 1.38 !important;
-    }
-
-    @media (max-width: 760px), (hover: none) and (pointer: coarse) {
-      body {
-        font-size: 21px !important;
-        line-height: 1.54 !important;
-      }
-
-      main section:not(.hero) p:not(.eyebrow),
-      main section:not(.hero) li,
-      main section:not(.hero) .prose,
-      main section:not(.hero) .prose p,
-      main section:not(.hero) .section-head > p:not(.eyebrow),
-      main section:not(.hero) .section-head p:last-child,
-      main section:not(.hero) .founders-head > p:not(.eyebrow),
-      main section:not(.hero) .founder-card p:not(.eyebrow),
-      main section:not(.hero) .method-cards p,
-      main section:not(.hero) .pathway-step p,
-      main section:not(.hero) .course-details span,
-      main section:not(.hero) .feature-list li,
-      main section:not(.hero) .notice,
-      main section:not(.hero) .cta-card p,
-      .form-note,
-      .site-footer p,
-      .password-card p,
-      input,
-      textarea {
-        font-size: 21px !important;
-        line-height: 1.52 !important;
-      }
-
-      .visual-section .prose p,
-      #faculty .section-head p:not(.eyebrow),
-      .founder-card p:not(.eyebrow),
-      .method-cards p,
-      .course-panel p,
-      .feature-list li {
-        font-size: 22px !important;
-        line-height: 1.48 !important;
-      }
-
-      .two-col h2,
-      .section-head h2,
-      .cta-card h2 {
-        font-size: clamp(2.42rem, 10.5vw, 3.55rem) !important;
-        line-height: 1.08 !important;
-      }
-
-      .method-cards h3,
-      .pathway-step h3,
-      .course-panel h3,
-      .founder-card h3 {
-        font-size: 1.88rem !important;
-        line-height: 1.12 !important;
-      }
-
-      .eyebrow,
-      .card-kicker,
-      .image-card figcaption span,
-      .photo-card figcaption span,
-      .course-date span,
-      .password-form label,
-      .enquiry-form label {
-        font-size: 0.9rem !important;
-      }
-
-      .site-header .nav,
-      .mobile-menu-nav,
-      .mobile-menu-nav a,
-      .button,
-      .nav-cta,
-      .mobile-nav-cta,
-      .password-form button {
-        font-size: 1rem !important;
-      }
-
-      .hero h1 {
-        font-size: clamp(2.88rem, 12.4vw, 4.55rem) !important;
-      }
-
-      .hero-lead {
-        font-size: 1.35rem !important;
-        line-height: 1.36 !important;
-      }
-    }
-
-    @media (min-width: 761px) {
-      body {
-        font-size: 19px !important;
-        line-height: 1.56 !important;
-      }
-
-      main section:not(.hero) p:not(.eyebrow),
-      main section:not(.hero) li,
-      main section:not(.hero) .prose,
-      main section:not(.hero) .prose p,
-      main section:not(.hero) .section-head > p:not(.eyebrow),
-      main section:not(.hero) .section-head p:last-child,
-      main section:not(.hero) .founders-head > p:not(.eyebrow),
-      main section:not(.hero) .founder-card p:not(.eyebrow),
-      main section:not(.hero) .method-cards p,
-      main section:not(.hero) .pathway-step p,
-      main section:not(.hero) .course-details span,
-      main section:not(.hero) .feature-list li,
-      main section:not(.hero) .notice,
-      main section:not(.hero) .cta-card p,
-      .form-note,
-      .site-footer p,
-      .password-card p,
-      input,
-      textarea {
-        font-size: clamp(1.18rem, 1.1vw, 1.32rem) !important;
-        line-height: 1.56 !important;
-      }
-
-      .visual-section .prose p,
-      #faculty .section-head p:not(.eyebrow),
-      .founder-card p:not(.eyebrow),
-      .method-cards p,
-      .course-panel p,
-      .feature-list li {
-        font-size: clamp(1.24rem, 1.18vw, 1.38rem) !important;
-        line-height: 1.52 !important;
-      }
-
-      .eyebrow,
-      .card-kicker,
-      .image-card figcaption span,
-      .photo-card figcaption span,
-      .course-date span,
-      .password-form label,
-      .enquiry-form label {
-        font-size: 0.84rem !important;
-        line-height: 1.34 !important;
-      }
-
-      .site-header .nav,
-      .mobile-menu-nav,
-      .mobile-menu-nav a,
-      .button,
-      .nav-cta,
-      .mobile-nav-cta,
-      .password-form button {
-        font-size: 0.94rem !important;
-      }
-
-      .two-col h2,
-      .section-head h2,
-      .cta-card h2 {
-        font-size: clamp(2.48rem, 3.95vw, 4.28rem) !important;
-        line-height: 1.08 !important;
-      }
-
-      .method-cards h3,
-      .pathway-step h3,
-      .course-panel h3,
-      .founder-card h3 {
-        font-size: clamp(1.68rem, 2.02vw, 2.08rem) !important;
-        line-height: 1.12 !important;
-      }
-
-      .hero h1 {
-        font-size: clamp(4rem, 7.6vw, 7rem) !important;
-        line-height: 1.06 !important;
-      }
-
-      .hero-lead {
-        font-size: clamp(1.26rem, 2.3vw, 1.76rem) !important;
-        line-height: 1.38 !important;
-      }
-    }
-
   </style>
 </head>
 <body class="splash-loading password-locked">
@@ -1086,11 +515,12 @@
       <div class="container two-col">
         <div>
           <p class="eyebrow"></p>
-          <h2>Where imagination meets intellect.</h2>
+          <h2>Where imagination meets craft.</h2>
         </div>
         <div class="prose">
-          <p>Actors build their characters and scenes, rehearse, receive notes, shoot the work, and review what the camera records. Playback becomes a tool for diagnosis, correction, and progress.</p>
-          <p><em>The standard is practical, empathetic, and exact: feedback is specific, disciplined, respectful, and focused on continual progression toward mastery.</em></p>
+          <p>Access is built around a central problem in screen acting: the gap between what an actor feels and what the audience receives. A performance may be deeply felt inside the actor and still become unclear on screen, weak in the voice, or disconnected from the story. Our training closes that gap. Actors learn to turn impulse into behaviour, thought into voice, and imagination into choices the camera can read.</p>
+          <p>Our screen acting lead brings the pressure and discipline of professional performance: truthful behaviour, listening, adjustment, continuity, and command under camera conditions. The school’s voice lead trains the actor to let breath, sound, presence, and speech carry thought and feeling with clarity. The production lead brings the filmmaker’s eye: scene structure, story pressure, shot awareness, and what actually lands in the frame. Students rehearse, film, watch, receive notes, and return to the work with greater command.</p>
+		 <p><strong>The result is an actor who can feel truthfully, speak with force and freedom, and shape the performance so it serves the story on screen.</strong></p>
         </div>
       </div>
 
