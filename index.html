@@ -59,15 +59,19 @@
   </header>
   <main id="main">
 <section class="hero hero-home">
-  <img class="hero-image" src="images/hero-old.png" alt="Actor on camera in a dark rehearsal room" />
+  <img class="hero-image" src="images/hero-cinematic-clean.png" alt="Actor on camera in a dark rehearsal room" />
   <div class="hero-shade"></div>
-  <div class="hero-content narrow-center">
-    <p class="kicker">Sydney Screen Acting</p>
-    <h1>A screen acting gym for serious actors.</h1>
-    <p class="hero-lead">Train on camera. Watch the work back. Get direct notes. Build a repeatable craft for screen performance.</p>
-    <div class="hero-actions">
-      <a class="button light" href="classes.html">View classes</a>
-      <a class="button ghost-light" href="schedule.html">See next intakes</a>
+  <div class="hero-content hero-content-left hero-content-cinematic">
+    <div class="hero-lockup" aria-label="Access Acting Studio">
+      <img class="hero-lockup-mark" src="images/access-mark-paper.png" alt="" aria-hidden="true" />
+      <span class="hero-lockup-wordmark hero-lockup-wordmark-gold">Access Acting Studio</span>
+    </div>
+    <h1>Step Into<br>the Frame.</h1>
+    <div class="hero-divider" aria-hidden="true"></div>
+    <p class="hero-mantra">Truth. Choice. Story.</p>
+    <p class="hero-lead hero-lead-cinematic">A screen acting studio in Sydney for actors who are ready to do the work and be seen.</p>
+    <div class="hero-actions hero-actions-left">
+      <a class="button hero-button-gold" href="the-pathway.html">Explore The Pathway</a>
     </div>
   </div>
 </section>
@@ -140,6 +144,7 @@
   <div class="container two-col align-center">
     <div class="media-panel">
       <video src="videos/mockup-welcome.mp4" controls poster="images/black-cinematic-strip.jpg"></video>
+      <button class="video-play-overlay" type="button" aria-label="Play video"></button>
     </div>
     <div class="prose large">
       <p class="kicker">Outcomes</p>
@@ -187,10 +192,9 @@
   <script>
     (function () {
       const splash = document.querySelector('.splash-screen');
-      if (!splash) return;
-
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       let done = false;
+      let invertTriggered = false;
 
       function splashAlreadySeen() {
         try {
@@ -208,8 +212,14 @@
         }
       }
 
+      function triggerSplashInvert() {
+        if (!splash || done || invertTriggered) return;
+        invertTriggered = true;
+        splash.classList.add('invert-out');
+      }
+
       function finishSplash(options) {
-        if (done) return;
+        if (!splash || done) return;
         done = true;
         markSplashSeen();
         document.body.classList.remove('splash-loading');
@@ -222,22 +232,45 @@
         window.setTimeout(function () { splash.remove(); }, 650);
       }
 
-      // Show the splash once per browser tab/session.
-      // Clicking Home after that returns to the homepage without replaying it.
-      if (splashAlreadySeen() || reducedMotion) {
-        finishSplash({ instant: true });
-        return;
+      if (splash) {
+        // Show the splash once per browser tab/session.
+        // Clicking Home after that returns to the homepage without replaying it.
+        if (splashAlreadySeen() || reducedMotion) {
+          finishSplash({ instant: true });
+        } else {
+          window.addEventListener('load', function () {
+            window.setTimeout(triggerSplashInvert, 4250);
+            window.setTimeout(finishSplash, 5050);
+          });
+
+          splash.addEventListener('click', function () {
+            finishSplash();
+          });
+
+          window.setTimeout(triggerSplashInvert, 5600);
+          window.setTimeout(finishSplash, 6400);
+        }
       }
 
-      window.addEventListener('load', function () {
-        window.setTimeout(finishSplash, 5050);
-      });
+      const outcomePanel = document.querySelector('.media-panel');
+      const outcomeVideo = outcomePanel ? outcomePanel.querySelector('video') : null;
+      const playOverlay = outcomePanel ? outcomePanel.querySelector('.video-play-overlay') : null;
 
-      splash.addEventListener('click', function () {
-        finishSplash();
-      });
+      function syncOutcomeVideoState() {
+        if (!outcomePanel || !outcomeVideo) return;
+        const isPlaying = !outcomeVideo.paused && !outcomeVideo.ended;
+        outcomePanel.classList.toggle('is-playing', isPlaying);
+      }
 
-      window.setTimeout(finishSplash, 6400);
+      if (outcomeVideo && playOverlay) {
+        playOverlay.addEventListener('click', function () {
+          outcomeVideo.play();
+        });
+        outcomeVideo.addEventListener('play', syncOutcomeVideoState);
+        outcomeVideo.addEventListener('pause', syncOutcomeVideoState);
+        outcomeVideo.addEventListener('ended', syncOutcomeVideoState);
+        syncOutcomeVideoState();
+      }
     })();
   </script>
 
