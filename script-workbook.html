@@ -97,6 +97,10 @@
 </section>
 <section class="tab" id="circumstancesTab">
 <div class="card">
+<div class="section-title"><div><h2>Project</h2><p class="help">Choose the project first. The selected project determines which scenes and Composer work are available throughout the tool.</p></div></div>
+<div id="projectContextManager"></div>
+</div>
+<div class="card">
 <div class="section-title"><div><h2>Script Preparation</h2><p class="help">Read the whole script first as an audience member. Gather the evidence before fixing an interpretation, then record the responses that arrive before technical analysis changes them.</p></div></div>
 <div class="grid two">
 <div><label>Technique</label><select id="circumstancesTechnique"></select></div>
@@ -127,21 +131,19 @@
 </section>
 <section class="tab" id="setupTab">
 <div class="card">
-<div class="section-title"><div><h2>Scene</h2><p class="help">Choose the project and scene first. The selected scene governs the Composer work across Performance, Script Preparation, Character, Relationships, Beat Map, Rehearsal and Playback.</p></div></div>
+<div class="section-title"><div><h2>Scene</h2><p class="help">Choose the scene being worked on. The selected scene governs the Composer work across Performance, Script Preparation, Character, Relationships, Beat Map, Rehearsal and Playback.</p></div></div>
 <div id="sceneContextManager"></div>
 <div class="scene-detail-divider"></div>
-<div class="grid three">
-<div><label>Character</label><input data-bind="setup.character"/></div>
-<div><label>Scene Partner</label><input data-bind="setup.partner"/></div>
-<div><label>Format</label><input data-bind="setup.format"/></div>
+<div class="grid two">
+<div><label>Character</label><select id="sceneCharacterSelect" data-bind="setup.character"></select></div>
+<div><label>Scene Partner</label><select id="scenePartnerSelect" data-bind="setup.partner"></select></div>
+<div><label>Format</label><select id="sceneFormatSelect" data-bind="setup.format"></select></div>
+<div><label>Style / Genre</label><select id="sceneStyleGenreSelect" data-bind="setup.styleGenre"></select></div>
 </div>
 <div class="grid two" style="margin-top:12px">
 <div><label>Scene Message</label><textarea data-bind="setup.sceneMessage"></textarea></div>
-<div><label>Style / Genre</label><textarea data-bind="setup.styleGenre"></textarea></div>
 <div><label>Scene Super-Objective</label><textarea data-bind="setup.sceneSuperObjective"></textarea></div>
 <div><label>Main Obstacle</label><textarea data-bind="setup.mainObstacle"></textarea></div>
-<div><label>Starting State</label><textarea data-bind="setup.startingState"></textarea></div>
-<div><label>Ending State</label><textarea data-bind="setup.endingState"></textarea></div>
 </div>
 </div>
 <div class="card" data-min-depth="professional">
@@ -157,16 +159,7 @@
 <div><label>Bad Fantasy</label><textarea data-bind="setup.badFantasy"></textarea></div>
 </div>
 </div>
-<div class="card">
-<h3>Shifts</h3>
-<div class="grid two">
-<div><label>Emotional Shifts</label><textarea data-bind="setup.emotionalShifts"></textarea></div>
-<div><label>Relationship Shifts</label><textarea data-bind="setup.relationshipShifts"></textarea></div>
-<div><label>Status Shifts</label><textarea data-bind="setup.statusShifts"></textarea></div>
-<div><label>Thought / Power Shifts</label><textarea data-bind="setup.thoughtPowerShifts"></textarea></div>
-</div>
-<div style="margin-top:12px"><label>Setup Notes</label><textarea data-bind="setup.notes"></textarea></div>
-</div>
+
 <div class="card">
 <div class="section-title"><div><h3>Script &amp; Story Analysis</h3><p class="help">This section groups the essential story questions, severe carryover, beats, turns, style, and action map that shape the work that follows.</p></div></div>
 <div class="grid two">
@@ -179,6 +172,7 @@
 <section class="tab" id="characterTab">
 <div class="card">
 <h2>Character</h2>
+<div style="margin-bottom:12px"><label>Character Name</label><input data-bind="character.name" placeholder="Enter the character's name"/></div>
 <div class="grid two">
 <div><label>Traits</label><textarea data-bind="character.traits"></textarea></div>
 <div><label>Trait Transitions</label><textarea data-bind="character.traitTransitions"></textarea></div>
@@ -221,6 +215,19 @@
 <div class="section-title"><div><h2>Beat Map</h2><p class="help">Create each beat by identifying its key dramatic elements: section, section name, one-sentence purpose, speed, tone or mood, and the specific demand of that section.</p></div><button class="btn primary" id="addBeat">+ Add Beat</button></div>
 <div class="beat-section-summary" id="beatSectionSummary"></div>
 <div class="table-ish" id="beatList"></div>
+</div>
+<div class="card">
+<div class="section-title"><div><h3>Shifts</h3><p class="help">Aim for at least one clear shift in every scene. Shifts will often occur at a beat change. Track how the starting state becomes the ending state through changes in emotion, relationship, status, thought or power, and intensity.</p></div></div>
+<div class="grid two">
+<div><label>Starting State</label><textarea data-bind="setup.startingState"></textarea></div>
+<div><label>Ending State</label><textarea data-bind="setup.endingState"></textarea></div>
+<div><label>Emotional Shifts</label><textarea data-bind="setup.emotionalShifts"></textarea></div>
+<div><label>Relationship Shifts</label><textarea data-bind="setup.relationshipShifts"></textarea></div>
+<div><label>Status Shifts</label><textarea data-bind="setup.statusShifts"></textarea></div>
+<div><label>Thought / Power Shifts</label><textarea data-bind="setup.thoughtPowerShifts"></textarea></div>
+<div><label>Intensity Shifts</label><textarea data-bind="setup.intensityShifts"></textarea></div>
+</div>
+<div style="margin-top:12px"><label>Scene / Shift Notes</label><textarea data-bind="setup.notes"></textarea></div>
 </div>
 </section>
 <section class="tab active" id="thoughtTab">
@@ -560,6 +567,7 @@
   function migrateState(s){
     s=sanitiseStateShape(s);
     if(!s.setup)s.setup={}; if(!s.character)s.character={}; if(!s.relationship)s.relationship={}; if(!s.playback)s.playback={}; if(!s.walkthrough)s.walkthrough={};
+    if(!s.character.name && s.setup.character)s.character.name=s.setup.character;
     if(!Array.isArray(s.beats))s.beats=[]; if(!Array.isArray(s.thoughts))s.thoughts=[]; if(!Array.isArray(s.runs))s.runs=[]; if(!Array.isArray(s.relationships))s.relationships=[]; if(!Array.isArray(s.shortlist))s.shortlist=[];
     if(!s.sectionTechniques)s.sectionTechniques={setup:[],character:[],relationship:[],playback:[]};
     ['setup','character','relationship','playback'].forEach(k=>{if(!Array.isArray(s.sectionTechniques[k]))s.sectionTechniques[k]=[];});
@@ -596,12 +604,46 @@
     return names.length?`Performance: ${names.join(', ')}`:'Performance';
   }
   function renderPerformanceHeading(){const el=document.getElementById('performanceSceneHeading');if(el)el.textContent=performanceContextTitle();}
+  const FORMAT_OPTIONS=['Film','Television','Streaming / Web Series','Stage / Theatre','Self-Tape / Audition','Commercial','Voiceover / Audio Drama','Musical Theatre','Live Performance','Other'];
+  const STYLE_GENRE_OPTIONS=['Drama','Comedy','Dramedy','Tragedy','Romance','Crime','Thriller','Mystery','Action','Horror','Science Fiction','Fantasy','Period / Historical','Shakespeare / Classical','Musical','Satire','Farce','Naturalism / Realism','Heightened / Stylised','Commercial','Other'];
+  function renderProjectContextManager(){
+    const el=document.getElementById('projectContextManager');if(!el)return;
+    ensureSceneRegistry(state);
+    const project=currentProjectRecord();
+    el.innerHTML=`<div class="scene-context-manager"><div class="grid two scene-context-selectors"><div><label>Project</label><select onchange="selectProjectContext(this.value)">${(state.projects||[]).map(item=>`<option value="${escapeHtml(item.id)}" ${item.id===project?.id?'selected':''}>${escapeHtml(item.name||'Untitled Project')}</option>`).join('')}</select></div><div><label>Project Name</label><input value="${escapeHtml(project?.name||'')}" onchange="renameActiveProject(this.value)"></div></div><div class="toolbar scene-context-actions"><button class="btn primary" type="button" onclick="createProjectContext()">+ New Project</button></div></div>`;
+  }
   function renderSceneContextManager(){
     const el=document.getElementById('sceneContextManager');if(!el)return;
     ensureSceneRegistry(state);
     const project=currentProjectRecord();const scene=currentSceneRecord();
     const sceneOptions=(state.scenes||[]).filter(item=>item.projectId===project?.id);
-    el.innerHTML=`<div class="scene-context-manager"><div class="grid two scene-context-selectors"><div><label>Project</label><select onchange="selectProjectContext(this.value)">${(state.projects||[]).map(item=>`<option value="${escapeHtml(item.id)}" ${item.id===project?.id?'selected':''}>${escapeHtml(item.name||'Untitled Project')}</option>`).join('')}</select></div><div><label>Scene</label><select onchange="selectSceneContext(this.value)">${sceneOptions.map(item=>`<option value="${escapeHtml(item.id)}" ${item.id===scene?.id?'selected':''}>${escapeHtml(item.name||'Untitled Scene')}</option>`).join('')}</select></div></div><div class="grid two scene-context-names"><div><label>Project Name</label><input value="${escapeHtml(project?.name||'')}" onchange="renameActiveProject(this.value)"></div><div><label>Scene Name</label><input value="${escapeHtml(scene?.name||'')}" onchange="renameActiveScene(this.value)"></div></div><div class="toolbar scene-context-actions"><button class="btn primary" type="button" onclick="createProjectContext()">+ New Project</button><button class="btn" type="button" onclick="createSceneContext()">+ New Scene</button><button class="btn" type="button" onclick="duplicateSceneContext()">Duplicate Scene</button><button class="btn danger" type="button" onclick="deleteSceneContext()">Delete Scene</button></div></div>`;
+    el.innerHTML=`<div class="scene-context-manager"><div class="grid two scene-context-selectors"><div><label>Scene</label><select onchange="selectSceneContext(this.value)">${sceneOptions.map(item=>`<option value="${escapeHtml(item.id)}" ${item.id===scene?.id?'selected':''}>${escapeHtml(item.name||'Untitled Scene')}</option>`).join('')}</select></div><div><label>Scene Name</label><input value="${escapeHtml(scene?.name||'')}" onchange="renameActiveScene(this.value)"></div></div><div class="toolbar scene-context-actions"><button class="btn primary" type="button" onclick="createSceneContext()">+ New Scene</button><button class="btn" type="button" onclick="duplicateSceneContext()">Duplicate Scene</button><button class="btn danger" type="button" onclick="deleteSceneContext()">Delete Scene</button></div></div>`;
+  }
+  function appendOption(select,value,label,selected){
+    const option=document.createElement('option');option.value=value;option.textContent=label;option.selected=value===selected;select.appendChild(option);
+  }
+  function populateRoleSelect(id,selected){
+    const select=document.getElementById(id);if(!select)return;
+    const current=String(selected||'');select.innerHTML='';appendOption(select,'','Select from Character or Relationships',current);
+    const seen=new Set();
+    const characterName=String(state.character?.name||'').trim();
+    if(characterName){const group=document.createElement('optgroup');group.label='Character';const option=document.createElement('option');option.value=characterName;option.textContent=characterName;option.selected=characterName===current;group.appendChild(option);select.appendChild(group);seen.add(characterName.toLowerCase());}
+    const relationships=(state.relationships||[]).map(r=>String(r.person||'').trim()).filter(Boolean).filter(name=>{const key=name.toLowerCase();if(seen.has(key))return false;seen.add(key);return true;});
+    if(relationships.length){const group=document.createElement('optgroup');group.label='Relationships';relationships.forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;option.selected=name===current;group.appendChild(option);});select.appendChild(group);}
+    if(current&&!seen.has(current.toLowerCase())){const group=document.createElement('optgroup');group.label='Existing Selection';const option=document.createElement('option');option.value=current;option.textContent=current;option.selected=true;group.appendChild(option);select.appendChild(group);}
+    select.value=current;
+  }
+  function populateListSelect(id,options,selected,placeholder){
+    const select=document.getElementById(id);if(!select)return;
+    const current=String(selected||'');select.innerHTML='';appendOption(select,'',placeholder,current);options.forEach(value=>appendOption(select,value,value,current));
+    if(current&&!options.includes(current))appendOption(select,current,current,current);
+    select.value=current;
+  }
+  function populateSceneSelects(){
+    populateRoleSelect('sceneCharacterSelect',state.setup?.character);
+    populateRoleSelect('scenePartnerSelect',state.setup?.partner);
+    populateListSelect('sceneFormatSelect',FORMAT_OPTIONS,state.setup?.format,'Select format');
+    populateListSelect('sceneStyleGenreSelect',STYLE_GENRE_OPTIONS,state.setup?.styleGenre,'Select style / genre');
   }
   function selectProjectContext(projectId){
     syncActiveSceneSnapshot();
@@ -632,7 +674,7 @@
     const project={id:uid('project_'),name:`Project ${(state.projects||[]).length+1}`};
     const scene={id:uid('scene_'),projectId:project.id,name:'Scene 1',data:blankSceneSnapshot()};
     state.projects.push(project);state.scenes.push(scene);state.activeProjectId=project.id;state.activeSceneId=scene.id;
-    hydrateActiveSceneState(state);saveState();renderAll();showTab('setupTab');
+    hydrateActiveSceneState(state);saveState();renderAll();showTab('circumstancesTab');
   }
   function createSceneContext(){
     syncActiveSceneSnapshot();
@@ -669,7 +711,7 @@
   }
 
   function showTab(id){if(window.activateComposerTab)window.activateComposerTab(id);}
-  function bindInputs(root=document){root.querySelectorAll('[data-bind]').forEach(el=>{el.value=getPath(state,el.dataset.bind);el.oninput=()=>{setPath(state,el.dataset.bind,el.value);saveState();if(el.dataset.bind.startsWith('setup.')||el.dataset.bind.startsWith('character.')||el.dataset.bind.startsWith('relationship.'))renderThoughtList();if(el.dataset.bind.startsWith('setup.'))renderPerformanceHeading();};});}
+  function bindInputs(root=document){root.querySelectorAll('[data-bind]').forEach(el=>{el.value=getPath(state,el.dataset.bind);el.oninput=()=>{setPath(state,el.dataset.bind,el.value);saveState();if(el.dataset.bind.startsWith('setup.')||el.dataset.bind.startsWith('character.')||el.dataset.bind.startsWith('relationship.'))renderThoughtList();if(el.dataset.bind.startsWith('setup.'))renderPerformanceHeading();if(el.dataset.bind==='character.name')populateSceneSelects();};});}
   function refreshDepth(){
     state=migrateState(state);
     const depth=currentDepth(); const rank=DEPTH_RANK[depth]||2;
@@ -828,7 +870,7 @@ ${t.what}`:'';
   function activeRelationship(){return state.relationships.find(r=>r.id===state.activeRelationshipId)||state.relationships[0]||null;}
   function addRelationship(){const n=state.relationships.length+1;const r={id:uid('rel'),person:`Relationship ${n}`,type:'',issue:'',initial:'',final:'',prejudice:'',pulse:'',history:'',substantiation:'',anchor:'',notes:'',techniques:[]};state.relationships.push(r);state.activeRelationshipId=r.id;saveState();renderRelationshipList();renderRelationshipEditor();}
   function selectRelationship(id){state.activeRelationshipId=id;saveState();renderRelationshipList();renderRelationshipEditor();}
-  function updateRelationship(key,value){const r=activeRelationship();if(!r)return;r[key]=value;saveState();renderRelationshipList();}
+  function updateRelationship(key,value){const r=activeRelationship();if(!r)return;r[key]=value;saveState();renderRelationshipList();if(key==='person')populateSceneSelects();}
   function deleteRelationship(){const r=activeRelationship();if(!r)return;if(!confirm('Delete this relationship?'))return;state.relationships=state.relationships.filter(x=>x.id!==r.id);state.activeRelationshipId=state.relationships[0]?.id||null;saveState();renderRelationshipList();renderRelationshipEditor();}
   function duplicateRelationship(){const r=activeRelationship();if(!r)return;const copy=clone(r);copy.id=uid('rel');copy.person=(copy.person||'Relationship')+' copy';copy.techniques=clone(copy.techniques||[]);state.relationships.push(copy);state.activeRelationshipId=copy.id;saveState();renderRelationshipList();renderRelationshipEditor();}
   function renderRelationshipList(){const el=document.getElementById('relationshipList');if(!el)return;if(!state.relationships.length){el.innerHTML='<div class="empty">No relationships yet.</div>';return;}el.innerHTML=state.relationships.map(r=>`<div class="thought-card ${r.id===state.activeRelationshipId?'active':''}" onclick="selectRelationship('${r.id}')"><strong>${escapeHtml(r.person||r.type||'Untitled relationship')}</strong><div>${escapeHtml(r.type||'')}</div><div>${r.prejudice?`<span class="badge">${escapeHtml(r.prejudice)}</span>`:''}${r.issue?`<span class="badge">issue</span>`:''}${(r.techniques&&r.techniques.length)?`<span class="badge">${r.techniques.length} tech</span>`:''}</div></div>`).join('');}
@@ -880,7 +922,7 @@ ${t.what}`:'';
    const requestedTab=location.hash.slice(1);
    if(requestedTab&&document.getElementById(requestedTab)?.classList.contains('tab')){showTab(requestedTab);requestAnimationFrame(()=>document.getElementById('performance-composer')?.scrollIntoView());}
   }
-  function renderAll(){state=migrateState(state);renderSceneContextManager();renderPerformanceHeading();bindInputs();renderAllTechniquePanels();renderWalkthrough();renderSetupAnalysis();renderRelationshipList();renderRelationshipEditor();renderBeatList();renderThoughtList();renderThoughtEditor();renderRunList();renderLibraryFilters();renderLibraryExplain();renderLibrary();renderShortlist();renderPrepShortlist();refreshDepth();}
+  function renderAll(){state=migrateState(state);renderProjectContextManager();renderSceneContextManager();renderPerformanceHeading();populateSceneSelects();bindInputs();renderAllTechniquePanels();renderWalkthrough();renderSetupAnalysis();renderRelationshipList();renderRelationshipEditor();renderBeatList();renderThoughtList();renderThoughtEditor();renderRunList();renderLibraryFilters();renderLibraryExplain();renderLibrary();renderShortlist();renderPrepShortlist();refreshDepth();}
   function addBeat(){const n=state.beats.length+1;state.beats.push({id:uid('b'),name:`Beat ${n}`,guideSection:'Custom',summaryPurpose:'',speed:'',toneMood:'',specificElement:''});saveState();renderBeatList();renderThoughtEditor();}
   function updateBeat(id,key,value){const b=state.beats.find(x=>x.id===id);if(b){b[key]=value;saveState();renderBeatSectionSummary();renderThoughtList();renderThoughtEditor();}}
   function deleteBeat(id){if(!confirm('Delete this beat? Thoughts assigned to it will remain but show no beat.'))return;state.beats=state.beats.filter(b=>b.id!==id);state.thoughts.forEach(t=>{if(t.beatId===id)t.beatId='';});saveState();renderWalkthrough();renderRelationshipList();renderRelationshipEditor();renderBeatList();renderThoughtList();renderThoughtEditor();}
