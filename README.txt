@@ -1,8 +1,5 @@
-Access Acting Studio — private coaching model
+ACCESS ACTING STUDIO — PERFORMANCE COMPOSER
 
-Updated package:
-- Splash screen restored with a safe timed exit, click-to-skip, session skip, and CSS fallback.
-- Showreel offer removed.
-- Access Method page now explains the method only.
-- Access Method Workbook moved to its own page: script-workbook.html.
-- Navigation and footer now include a Workbook link.
+Open index.html. The site now opens directly into Performance Composer.
+The former script-workbook.html address remains available for compatibility.
+Other studio pages remain accessible through the secondary navigation.

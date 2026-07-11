@@ -1269,3 +1269,68 @@ p{margin:0 0 1rem}h1,h2,h3{margin:0;line-height:1.08;font-weight:500;letter-spac
     box-shadow:none!important;
   }
 }
+
+
+/* Performance Composer — primary site experience */
+.composer-intro{
+  background:var(--black);
+  color:var(--paper);
+  border-bottom:1px solid rgba(255,255,255,.14);
+}
+.composer-intro-inner{
+  width:min(var(--wide),calc(100% - 2*var(--pad)));
+  margin:0 auto;
+  min-height:190px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:36px;
+  padding:42px 0 38px;
+}
+.composer-intro .kicker{
+  color:#d6ae58;
+  margin-bottom:10px;
+}
+.composer-intro h1{
+  font-size:clamp(2.7rem,5.7vw,6.5rem);
+  line-height:.92;
+  letter-spacing:-.055em;
+}
+.composer-intro p:last-child{
+  max-width:790px;
+  margin:18px 0 0;
+  color:rgba(255,255,255,.72);
+  font-size:clamp(.98rem,1.35vw,1.2rem);
+}
+.composer-method-link{
+  flex:0 0 auto;
+  border-bottom:1px solid rgba(255,255,255,.58);
+  padding-bottom:4px;
+  margin-bottom:4px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:.72rem;
+  font-weight:600;
+}
+@media (max-width: 760px){
+  .composer-intro-inner{
+    min-height:auto;
+    display:block;
+    padding:34px 0 30px;
+  }
+  .composer-method-link{
+    display:inline-block;
+    margin-top:22px;
+  }
+}
+
+.statement .statement-signature{
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:.78rem;
+}
+.statement-method-link{
+  display:inline-block;
+  margin-top:20px;
+  color:var(--paper);
+}
