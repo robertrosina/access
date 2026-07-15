@@ -21,9 +21,12 @@
 .performance-unit-toolbar{position:sticky;top:0;z-index:40;background:#fff;padding:10px 0;margin:-2px 0 12px;border-bottom:1px solid rgba(0,0,0,.08)}
 .performance-unit-content .split-line-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
 .performance-unit-content .split-line-row label{margin:0}
-.thought-line,.thought-subtext-line,.performance-unit-content textarea{font-size:1rem;line-height:1.5}
-.accent-preview{margin-top:8px;padding:10px 12px;border:1px solid rgba(0,0,0,.1);border-radius:8px;background:#fafafa;white-space:pre-wrap;font-size:1rem;line-height:1.5}
+.thought-line,.thought-subtext-line{font-size:1rem!important;line-height:1.5!important;font-weight:400!important}
+.thought-line strong{font-weight:700!important}
+.performance-unit-content textarea{font-size:1rem;line-height:1.5}
 .split-line-actions{display:flex;flex-wrap:wrap;gap:6px}
+.thought-item.multi-selected{outline:3px solid rgba(147,101,33,.55);outline-offset:-3px}
+#recombineThoughts:disabled{opacity:.45;cursor:not-allowed}
 </style>
 </head>
 <body class="workbook-page">
@@ -246,6 +249,7 @@
 <div class="toolbar performance-unit-toolbar">
 <button class="btn primary" id="addThought">+ Add Performance Unit</button>
 <button class="btn" id="duplicateThought">Duplicate</button>
+<button class="btn" id="recombineThoughts" disabled>Recombine selected</button>
 <button class="btn" id="moveThoughtUp">↑</button>
 <button class="btn" id="moveThoughtDown">↓</button>
 <button class="btn danger" id="deleteThought">Delete</button>
@@ -886,7 +890,10 @@ ${t.what}`:'';
   function relationTechniquePanelHTML(r){const prefix='rel_'+r.id+'_';return renderTechniquePickerHTML('relation',prefix,'Relationship Technique Selector')+`<input type="hidden" id="${prefix}Owner" value="${escapeHtml(r.id)}">`;}
   function renderRelationshipEditor(){const el=document.getElementById('relationshipEditor');if(!el)return;const r=activeRelationship();if(!r){el.innerHTML='<div class="empty">Select or add a relationship.</div>';return;}el.innerHTML=`<div class="grid two">${relationshipField(r,'person','Person / Object / Place / Group','input')}${relationshipField(r,'type','Relationship Type','input')}${relationshipField(r,'issue','Issue at Hand')}${relationshipField(r,'prejudice','Prejudice')}${relationshipField(r,'initial','Initial State')}${relationshipField(r,'final','Final State')}${relationshipField(r,'pulse','Relationship Pulse')}${relationshipField(r,'history','Relationship History')}${relationshipField(r,'substantiation','Relationship Substantiation')}${relationshipField(r,'anchor','Relationship Anchor')}${relationshipField(r,'notes','Relationship Notes')}</div>${relationTechniquePanelHTML(r)}`;const prefix='rel_'+r.id+'_';initPicker('relation',prefix);renderPickerAttached('relation',prefix,r.id);}
   
+  let selectedThoughtIds=new Set();
+  let lastThoughtSelectionIndex=null;
   function activeThought(){return state.thoughts.find(t=>t.id===state.activeThoughtId)||state.thoughts[0]||null;}
+  function updateRecombineButton(){const b=document.getElementById('recombineThoughts');if(b)b.disabled=selectedThoughtIds.size<2;}
   function beatName(id){const b=state.beats.find(x=>x.id===id);return b?b.name:'';}
   function renderBeatOptions(selected){return ['<option value="">No beat</option>'].concat(state.beats.map(b=>`<option value="${escapeHtml(b.id)}" ${b.id===selected?'selected':''}>${escapeHtml(b.name||'Untitled beat')}</option>`)).join('');}
   function init(){
@@ -899,6 +906,7 @@ ${t.what}`:'';
    bindClick('addBeat',addBeat);
    bindClick('addThought',addThought);
    bindClick('duplicateThought',duplicateThought);
+   bindClick('recombineThoughts',recombineSelectedThoughts);
    bindClick('deleteThought',deleteThought);
    bindClick('moveThoughtUp',()=>moveThought(-1));
    bindClick('moveThoughtDown',()=>moveThought(1));
@@ -1034,7 +1042,7 @@ ${t.what}`:'';
     const start=box.selectionStart??0,end=box.selectionEnd??0;
     if(end<=start){alert('Select the word or words you want to accent.');return;}
     if(!Array.isArray(t.accentRanges))t.accentRanges=[];
-    t.accentRanges.push({start,end});normaliseAccentRanges(t);saveState();renderThoughtList();renderThoughtEditor();
+    t.accentRanges.push({start,end});normaliseAccentRanges(t);saveState();renderThoughtList();box.focus();box.setSelectionRange(start,end);
   }
   function clearDialogueAccents(){
     const t=activeThought();if(!t)return;t.accentRanges=[];saveState();renderThoughtList();renderThoughtEditor();
@@ -1060,9 +1068,37 @@ ${t.what}`:'';
     requestAnimationFrame(()=>{const next=document.getElementById('performanceUnitText');if(next){next.focus();next.setSelectionRange(0,0);}});
   }
   function duplicateThought(){const t=activeThought();if(!t)return;const copy=clone(t);copy.id=uid('t');copy.line=(copy.line||'')+' copy';state.thoughts.push(copy);state.activeThoughtId=copy.id;saveState();renderThoughtList();renderThoughtEditor();}
-  function deleteThought(){const t=activeThought();if(!t)return;if(!confirm('Delete this thought?'))return;state.thoughts=state.thoughts.filter(x=>x.id!==t.id);state.activeThoughtId=state.thoughts[0]?.id||null;saveState();renderThoughtList();renderThoughtEditor();}
+  function deleteThought(){const t=activeThought();if(!t)return;if(!confirm('Delete this thought?'))return;state.thoughts=state.thoughts.filter(x=>x.id!==t.id);selectedThoughtIds.delete(t.id);state.activeThoughtId=state.thoughts[0]?.id||null;saveState();renderThoughtList();renderThoughtEditor();}
+  function recombineSelectedThoughts(){
+    const indexes=state.thoughts.map((t,i)=>selectedThoughtIds.has(t.id)?i:-1).filter(i=>i>=0);
+    if(indexes.length<2)return;
+    const first=indexes[0],last=indexes[indexes.length-1];
+    if(last-first+1!==indexes.length){alert('Select consecutive entries to recombine them.');return;}
+    const items=state.thoughts.slice(first,last+1);
+    const base=items[0];
+    let merged='',ranges=[];
+    items.forEach((item,n)=>{
+      const part=String(item.line||'').trim();
+      if(!part)return;
+      const spacer=merged&& !/[\s—–-]$/.test(merged) && !/^[,.;:!?)]/.test(part)?' ':'';
+      const offset=merged.length+spacer.length;merged+=spacer+part;
+      (item.accentRanges||[]).forEach(r=>ranges.push({start:offset+r.start,end:offset+r.end}));
+    });
+    base.line=merged;base.accentRanges=ranges;
+    const joinField=key=>{const vals=items.map(x=>String(x[key]||'').trim()).filter(Boolean);if(vals.length)base[key]=vals.join('\n');};
+    joinField('textSubtext');joinField('reaction');joinField('subtext');joinField('unspoken');joinField('paraphrase');
+    state.thoughts.splice(first,items.length,base);state.activeThoughtId=base.id;selectedThoughtIds=new Set([base.id]);lastThoughtSelectionIndex=first;
+    normaliseAccentRanges(base);saveState();renderThoughtList();renderThoughtEditor();
+  }
   function moveThought(dir){const i=state.thoughts.findIndex(t=>t.id===state.activeThoughtId);const j=i+dir;if(i<0||j<0||j>=state.thoughts.length)return;[state.thoughts[i],state.thoughts[j]]=[state.thoughts[j],state.thoughts[i]];saveState();renderThoughtList();}
-  function selectThought(id){state.activeThoughtId=id;saveState();renderThoughtList();renderThoughtEditor();}
+  function selectThought(id,event){
+    const index=state.thoughts.findIndex(t=>t.id===id);
+    if(event&&event.shiftKey&&lastThoughtSelectionIndex!==null){
+      const a=Math.min(lastThoughtSelectionIndex,index),b=Math.max(lastThoughtSelectionIndex,index);
+      selectedThoughtIds=new Set(state.thoughts.slice(a,b+1).map(t=>t.id));
+    }else{selectedThoughtIds=new Set([id]);lastThoughtSelectionIndex=index;}
+    state.activeThoughtId=id;saveState();renderThoughtList();renderThoughtEditor();
+  }
   function presentValue(v){return Array.isArray(v)?v.length:!!String(v||'').trim();}
   function thoughtKV(label,value){if(!presentValue(value))return '';return `<div class="thought-kv"><b>${escapeHtml(label)}</b><span title="${escapeHtml(value)}">${escapeHtml(value)}</span></div>`;}
   function thoughtBadge(label,value){if(value===true)return `<span class="badge">${escapeHtml(label)}</span>`;if(!presentValue(value))return '';return `<span class="badge">${escapeHtml(label)}: ${escapeHtml(value)}</span>`;}
@@ -1119,8 +1155,9 @@ ${t.what}`:'';
       const badges=[
         thoughtBadge('Source',lineSourceLabel(t.lineSource))
       ].filter(Boolean).join('');
-      return `<div class="thought-item ${t.id===state.activeThoughtId?'active':''}" onclick="selectThought('${t.id}')"><div class="thought-meta"><span>${escapeHtml(beatName(t.beatId)||'No beat')}</span><span>#${i+1} · ${escapeHtml(t.unitType||'Thought')}</span></div><div class="thought-line">${t.line?accentedLineHtml(t):escapeHtml(t.action||'Untitled line / thought / movement / action')}</div>${subtextLine?`<div class="thought-subtext-line">${escapeHtml(subtextLine)}</div>`:''}${summary?`<div class="thought-summary">${summary}</div>`:''}${beatNotes}${techniqueNotes?`<div class="thought-summary technique-notes">${techniqueNotes}</div>`:''}${badges?`<div class="thought-badges">${badges}</div>`:''}</div>`;
+      return `<div class="thought-item ${t.id===state.activeThoughtId?'active':''} ${selectedThoughtIds.has(t.id)?'multi-selected':''}" onclick="selectThought('${t.id}',event)"><div class="thought-meta"><span>${escapeHtml(beatName(t.beatId)||'No beat')}</span><span>#${i+1} · ${escapeHtml(t.unitType||'Thought')}</span></div><div class="thought-line">${t.line?accentedLineHtml(t):escapeHtml(t.action||'Untitled line / thought / movement / action')}</div>${subtextLine?`<div class="thought-subtext-line">${escapeHtml(subtextLine)}</div>`:''}${summary?`<div class="thought-summary">${summary}</div>`:''}${beatNotes}${techniqueNotes?`<div class="thought-summary technique-notes">${techniqueNotes}</div>`:''}${badges?`<div class="thought-badges">${badges}</div>`:''}</div>`;
     }).join('');
+    updateRecombineButton();
   }
   function field(t,key,label,type='textarea',minDepth='essential'){const val=escapeHtml(t[key]||''); const depthAttr=minDepth&&minDepth!=='essential'?` data-min-depth="${minDepth}"`:''; if(type==='input')return `<div${depthAttr}><label>${label}</label><input value="${val}" oninput="updateThought('${key}',this.value)"></div>`; return `<div${depthAttr}><label>${label}</label><textarea oninput="updateThought('${key}',this.value)">${val}</textarea></div>`;}
   function hasAny(t,keys){return keys.some(k=>{const v=t[k];return Array.isArray(v)?v.length:!!v;});}
@@ -1209,10 +1246,9 @@ ${t.what}`:'';
   function performanceUnitBlock(t){
     const heading=unitTypeHeading(t);
     const isDialogue=t.unitType==='Dialogue';
-    const actions=isDialogue?`<div class="split-line-actions"><button class="btn small" type="button" onclick="splitDialogueLine()">Split at cursor</button><button class="btn small" type="button" onclick="accentSelectedWords()"><b>B</b> Accent selection</button>${(t.accentRanges||[]).length?`<button class="btn small" type="button" onclick="clearDialogueAccents()">Clear accents</button>`:''}</div>`:'';
+    const actions=isDialogue?`<div class="split-line-actions"><button class="btn small" type="button" onclick="splitDialogueLine()">Split at cursor</button><button class="btn small" type="button" onclick="accentSelectedWords()">Accent</button>${(t.accentRanges||[]).length?`<button class="btn small" type="button" onclick="clearDialogueAccents()">Clear accents</button>`:''}</div>`:'';
     const response=isDialogue?`<div style="grid-column:1/-1;margin-top:10px">${combinedTextSubtextField(t)}</div>`:'';
-    const preview=isDialogue&&String(t.line||'').trim()?`<div class="accent-preview" aria-label="Dialogue accent preview">${accentedLineHtml(t)}</div>`:'';
-    return `<div class="performance-unit-card"><div class="section-title"><div><h3>${escapeHtml(heading)}</h3><p class="help">Define the unit before choosing how it will be performed.</p></div></div><div class="grid two">${unitTypeField(t)}<div class="performance-unit-content"><div class="split-line-row"><label>${escapeHtml(heading)}</label>${actions}</div><textarea id="performanceUnitText" oninput="updateThought('line',this.value)" onkeydown="if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='b'){event.preventDefault();accentSelectedWords();}">${escapeHtml(t.line||'')}</textarea>${preview}</div>${response}</div></div>`;
+    return `<div class="performance-unit-card"><div class="section-title"><div><h3>${escapeHtml(heading)}</h3><p class="help">Define the unit before choosing how it will be performed.</p></div></div><div class="grid two">${unitTypeField(t)}<div class="performance-unit-content"><div class="split-line-row"><label>${escapeHtml(heading)}</label>${actions}</div><textarea id="performanceUnitText" oninput="updateThought('line',this.value)" onkeydown="if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='b'){event.preventDefault();accentSelectedWords();}">${escapeHtml(t.line||'')}</textarea></div>${response}</div></div>`;
   }
   function jokeToggleField(t){const val=t.makeJoke?'yes':'';return `<div><label>Make Line a Joke?</label><select onchange="setThoughtJoke(this.value)"><option value="" ${!val?'selected':''}>No</option><option value="yes" ${val==='yes'?'selected':''}>Yes</option></select></div>`;}
   function jokeFields(t){return `<details class="collapsible" style="margin-top:10px;background:#fffaf2"${t.makeJoke?' open':''}><summary>Comedy / Joke Work ${t.makeJoke?'<span class="badge">on</span>':''}</summary>${removePanelButton('joke')}<div class="grid two" style="margin-top:10px">${jokeToggleField(t)}${t.makeJoke?`${field(t,'jokeSetup','Setup / Assumption')}${field(t,'jokeTurn','Turn / Reversal')}${field(t,'jokeLanding','Punch / Landing')}${field(t,'jokeTiming','Timing / Pause / Button')}${field(t,'jokeTruth','Truth / Stakes Underneath')}${field(t,'jokeButton','Tag / Extra Button','textarea','professional')}`:''}</div></details>`;}
