@@ -1513,3 +1513,38 @@ p{margin:0 0 1rem}h1,h2,h3{margin:0;line-height:1.08;font-weight:500;letter-spac
   .workbook-page .scene-context-manager{padding:14px}
   .workbook-page .performance-unit-card{padding:14px}
 }
+
+
+/* Performance-map editing controls */
+.workbook-page .performance-unit-toolbar{
+  position:sticky;
+  top:164px;
+  z-index:40;
+  padding:10px;
+  margin:-2px -2px 16px;
+  background:rgba(247,244,237,.97);
+  border:1px solid var(--line);
+  box-shadow:0 5px 14px rgba(0,0,0,.08);
+  backdrop-filter:blur(7px);
+}
+.workbook-page .rich-line-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+.workbook-page .rich-line-editor{
+  min-height:92px;
+  width:100%;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  background:#fff;
+  font:inherit;
+  line-height:1.6;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  outline:none;
+}
+.workbook-page .rich-line-editor:focus{
+  border-color:var(--maroon);
+  box-shadow:0 0 0 3px rgba(77,0,0,.08);
+}
+.workbook-page .thought-line b{font-weight:800;color:var(--maroon)}
+@media(max-width:900px){.workbook-page .performance-unit-toolbar{top:92px}}
+@media(max-width:680px){.workbook-page .performance-unit-toolbar{position:sticky;top:72px;gap:6px}.workbook-page .performance-unit-toolbar .btn{padding:0 9px}}
+@media print{.workbook-page .performance-unit-toolbar{position:static;box-shadow:none}.workbook-page .rich-line-toolbar{display:none}}
