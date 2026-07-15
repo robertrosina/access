@@ -17,6 +17,14 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&amp;display=swap" rel="stylesheet"/>
 <link href="style.css" rel="stylesheet"/>
+<style>
+.performance-unit-toolbar{position:sticky;top:0;z-index:40;background:#fff;padding:10px 0;margin:-2px 0 12px;border-bottom:1px solid rgba(0,0,0,.08)}
+.performance-unit-content .split-line-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.performance-unit-content .split-line-row label{margin:0}
+.thought-line,.thought-subtext-line,.performance-unit-content textarea{font-size:1rem;line-height:1.5}
+.accent-preview{margin-top:8px;padding:10px 12px;border:1px solid rgba(0,0,0,.1);border-radius:8px;background:#fafafa;white-space:pre-wrap;font-size:1rem;line-height:1.5}
+.split-line-actions{display:flex;flex-wrap:wrap;gap:6px}
+</style>
 </head>
 <body class="workbook-page">
 <header class="site-header">
@@ -238,7 +246,6 @@
 <div class="toolbar performance-unit-toolbar">
 <button class="btn primary" id="addThought">+ Add Performance Unit</button>
 <button class="btn" id="duplicateThought">Duplicate</button>
-<button class="btn" id="splitThought">Split line</button>
 <button class="btn" id="moveThoughtUp">↑</button>
 <button class="btn" id="moveThoughtDown">↓</button>
 <button class="btn danger" id="deleteThought">Delete</button>
@@ -577,7 +584,7 @@
     s.relationships.forEach(r=>{if(!Array.isArray(r.techniques))r.techniques=[];});
     s.beats.forEach(b=>{if(!Array.isArray(b.techniques))b.techniques=[];if(b.guideSection===undefined)b.guideSection='';if(b.guideNote===undefined)b.guideNote='';});
     s.runs.forEach(r=>{if(!Array.isArray(r.techniques))r.techniques=[];});
-    s.thoughts.forEach(t=>{if(!Array.isArray(t.techniques))t.techniques=[];if(t.unitType===undefined)t.unitType='Thought';if(t.unitType==='Line')t.unitType='Dialogue';if(t.lineSource===undefined)t.lineSource='';if(t.reaction===undefined)t.reaction='';if(t.lineHtml===undefined)t.lineHtml='';if(t.intensity===undefined)t.intensity='';if(t.makeJoke===undefined)t.makeJoke=false;if(t.comicBooking===undefined)t.comicBooking=false;['jokeSetup','jokeTurn','jokeLanding','jokeTiming','jokeTruth','jokeButton','comicFrame','comicExpression','comicTiming','comicTransition','connectionEyeContact','connectionEyeContactDetail','environmentInteraction','environmentDetail','modeFamily','modeTarget','modeEffect','modeOutcome','modeOutcomeCustom','modeCustom','processDecision'].forEach(k=>{if(t[k]===undefined)t[k]='';});migrateModeFields(t);syncModeString(t);});
+    s.thoughts.forEach(t=>{if(!Array.isArray(t.techniques))t.techniques=[];if(t.unitType===undefined)t.unitType='Thought';if(t.unitType==='Line')t.unitType='Dialogue';if(t.lineSource===undefined)t.lineSource='';if(t.reaction===undefined)t.reaction='';if(!Array.isArray(t.accentRanges))t.accentRanges=[];if(t.intensity===undefined)t.intensity='';if(t.makeJoke===undefined)t.makeJoke=false;if(t.comicBooking===undefined)t.comicBooking=false;['jokeSetup','jokeTurn','jokeLanding','jokeTiming','jokeTruth','jokeButton','comicFrame','comicExpression','comicTiming','comicTransition','connectionEyeContact','connectionEyeContactDetail','environmentInteraction','environmentDetail','modeFamily','modeTarget','modeEffect','modeOutcome','modeOutcomeCustom','modeCustom','processDecision'].forEach(k=>{if(t[k]===undefined)t[k]='';});migrateModeFields(t);syncModeString(t);});
     s.prepDepth='all';
     ensureSceneRegistry(s);
     return s;
@@ -893,7 +900,6 @@ ${t.what}`:'';
    bindClick('addThought',addThought);
    bindClick('duplicateThought',duplicateThought);
    bindClick('deleteThought',deleteThought);
-   bindClick('splitThought',splitThoughtAtCursor);
    bindClick('moveThoughtUp',()=>moveThought(-1));
    bindClick('moveThoughtDown',()=>moveThought(1));
    bindClick('addRun',addRun);
@@ -1001,59 +1007,71 @@ ${t.what}`:'';
     const el=document.getElementById('beatList');if(!state.beats.length){el.innerHTML='<div class="empty">No beats yet. Add a beat to begin.</div>';return;}
     el.innerHTML=state.beats.map((b,i)=>`<div class="beat-item"><div class="section-title"><h3>${escapeHtml(b.name||'Untitled beat')}</h3><div><button class="btn small" onclick="duplicateBeat('${b.id}')">Duplicate</button> <button class="btn small danger" onclick="deleteBeat('${b.id}')">Delete</button></div></div><div class="grid three"><div><label>Beat Name</label><input value="${escapeHtml(b.name||'')}" oninput="updateBeat('${b.id}','name',this.value)"></div>${beatGuideField(b)}<div><label>Speed</label><input value="${escapeHtml(b.speed||'')}" placeholder="slow, still, fast, escalating, clipped..." oninput="updateBeat('${b.id}','speed',this.value)"></div><div style="grid-column:1/-1"><label>Beat Summary / Purpose in One Sentence</label><textarea oninput="updateBeat('${b.id}','summaryPurpose',this.value)">${escapeHtml(b.summaryPurpose||'')}</textarea></div><div style="grid-column:1/-1"><label>Tone / Mood</label><textarea oninput="updateBeat('${b.id}','toneMood',this.value)" placeholder="tense, playful, oppressive, intimate, ceremonial...">${escapeHtml(b.toneMood||'')}</textarea></div>${beatSpecificField(b)}</div></div>`).join('');
   }
-  function addThought(){const id=uid('t');state.thoughts.push({id,beatId:state.beats[0]?.id||'',unitType:'Thought',panels:[],lineSource:'',cue:'',line:'',lineHtml:'',reaction:'',thoughtUnit:'',textSubtext:'',paraphrase:'',subtext:'',unspoken:'',want:'',obstacle:'',intensity:'',modeFamily:'Make',modeTarget:'them',modeEffect:'feel',modeOutcome:'',modeOutcomeCustom:'',modeCustom:'',processDecision:'Process',makeJoke:false,jokeSetup:'',jokeTurn:'',jokeLanding:'',jokeTiming:'',jokeTruth:'',jokeButton:'',comicBooking:false,comicFrame:'',comicExpression:'',comicTiming:'',comicTransition:'',connectionEyeContact:'',connectionEyeContactDetail:'',environmentInteraction:'',environmentDetail:'',mode:'',action:'',body:'',voice:'',image:'',playback:'',keep:'',techniques:[]});state.activeThoughtId=id;syncModeString(state.thoughts[state.thoughts.length-1]);saveState();renderThoughtList();renderThoughtEditor();}
-  function duplicateThought(){const t=activeThought();if(!t)return;const copy=clone(t);copy.id=uid('t');copy.line=(copy.line||'')+' copy';copy.lineHtml='';state.thoughts.push(copy);state.activeThoughtId=copy.id;saveState();renderThoughtList();renderThoughtEditor();}
-  function plainTextFromHtml(html){const d=document.createElement('div');d.innerHTML=html||'';return (d.innerText||d.textContent||'').replace(/\u00a0/g,' ');}
-  function sanitiseLineHtml(html){
-    const template=document.createElement('template');template.innerHTML=html||'';
-    const allowed=new Set(['B','STRONG','BR']);
-    [...template.content.querySelectorAll('*')].forEach(node=>{
-      if(!allowed.has(node.tagName)){node.replaceWith(...node.childNodes);return;}
-      [...node.attributes].forEach(a=>node.removeAttribute(a.name));
+  function addThought(){const id=uid('t');state.thoughts.push({id,beatId:state.beats[0]?.id||'',unitType:'Thought',panels:[],lineSource:'',cue:'',line:'',thoughtUnit:'',textSubtext:'',reaction:'',accentRanges:[],paraphrase:'',subtext:'',unspoken:'',want:'',obstacle:'',intensity:'',modeFamily:'Make',modeTarget:'them',modeEffect:'feel',modeOutcome:'',modeOutcomeCustom:'',modeCustom:'',processDecision:'Process',makeJoke:false,jokeSetup:'',jokeTurn:'',jokeLanding:'',jokeTiming:'',jokeTruth:'',jokeButton:'',comicBooking:false,comicFrame:'',comicExpression:'',comicTiming:'',comicTransition:'',connectionEyeContact:'',connectionEyeContactDetail:'',environmentInteraction:'',environmentDetail:'',mode:'',action:'',body:'',voice:'',image:'',playback:'',keep:'',techniques:[]});state.activeThoughtId=id;syncModeString(state.thoughts[state.thoughts.length-1]);saveState();renderThoughtList();renderThoughtEditor();}
+
+  function normaliseAccentRanges(t){
+    const len=String(t.line||'').length;
+    t.accentRanges=(Array.isArray(t.accentRanges)?t.accentRanges:[])
+      .map(r=>({start:Math.max(0,Math.min(len,Number(r.start)||0)),end:Math.max(0,Math.min(len,Number(r.end)||0))}))
+      .filter(r=>r.end>r.start)
+      .sort((a,b)=>a.start-b.start);
+  }
+  function accentedLineHtml(t){
+    const text=String(t.line||'');normaliseAccentRanges(t);
+    if(!t.accentRanges.length)return escapeHtml(text);
+    let out='',pos=0;
+    t.accentRanges.forEach(r=>{
+      if(r.start>pos)out+=escapeHtml(text.slice(pos,r.start));
+      out+='<strong>'+escapeHtml(text.slice(r.start,r.end))+'</strong>';
+      pos=Math.max(pos,r.end);
     });
-    return template.innerHTML.replace(/<strong>/gi,'<b>').replace(/<\/strong>/gi,'</b>');
+    if(pos<text.length)out+=escapeHtml(text.slice(pos));
+    return out;
   }
-  function lineDisplayHtml(t){
-    const html=sanitiseLineHtml(t.lineHtml||'');
-    return html||escapeHtml(t.line||t.action||'Untitled line / thought / movement / action');
+  function accentSelectedWords(){
+    const t=activeThought(),box=document.getElementById('performanceUnitText');
+    if(!t||!box||t.unitType!=='Dialogue')return;
+    const start=box.selectionStart??0,end=box.selectionEnd??0;
+    if(end<=start){alert('Select the word or words you want to accent.');return;}
+    if(!Array.isArray(t.accentRanges))t.accentRanges=[];
+    t.accentRanges.push({start,end});normaliseAccentRanges(t);saveState();renderThoughtList();renderThoughtEditor();
   }
-  function updateRichLine(el){const t=activeThought();if(!t)return;t.lineHtml=sanitiseLineHtml(el.innerHTML);t.line=plainTextFromHtml(t.lineHtml);saveState();renderThoughtList();}
-  function boldSelectedLineText(){
-    const editor=document.getElementById('richLineEditor');if(!editor)return;
-    editor.focus();document.execCommand('bold',false,null);updateRichLine(editor);
+  function clearDialogueAccents(){
+    const t=activeThought();if(!t)return;t.accentRanges=[];saveState();renderThoughtList();renderThoughtEditor();
   }
-  function splitThoughtAtCursor(){
-    const t=activeThought();if(!t)return;
-    const editor=document.getElementById('richLineEditor');
-    let beforeHtml='',afterHtml='';
-    if(editor){
-      editor.focus();
-      const selection=window.getSelection();
-      const range=selection&&selection.rangeCount?selection.getRangeAt(0):null;
-      if(range&&editor.contains(range.startContainer)){
-        const before=document.createRange();before.selectNodeContents(editor);before.setEnd(range.startContainer,range.startOffset);
-        const after=document.createRange();after.selectNodeContents(editor);after.setStart(range.startContainer,range.startOffset);
-        const a=document.createElement('div'),b=document.createElement('div');a.appendChild(before.cloneContents());b.appendChild(after.cloneContents());
-        beforeHtml=sanitiseLineHtml(a.innerHTML);afterHtml=sanitiseLineHtml(b.innerHTML);
-      }
-    }
-    if(!beforeHtml&&!afterHtml){
-      const text=t.line||'';const cut=Math.max(0,Math.min(text.length,Math.floor(text.length/2)));
-      beforeHtml=escapeHtml(text.slice(0,cut).trimEnd());afterHtml=escapeHtml(text.slice(cut).trimStart());
-    }
-    t.lineHtml=beforeHtml;t.line=plainTextFromHtml(beforeHtml);
-    const copy=clone(t);copy.id=uid('t');copy.lineHtml=afterHtml;copy.line=plainTextFromHtml(afterHtml);copy.cue='';
-    const i=state.thoughts.findIndex(x=>x.id===t.id);state.thoughts.splice(i+1,0,copy);state.activeThoughtId=copy.id;
+  function splitDialogueLine(){
+    const t=activeThought();const box=document.getElementById('performanceUnitText');
+    if(!t||!box||t.unitType!=='Dialogue')return;
+    const text=box.value||'';const rawPoint=box.selectionStart??text.length;
+    const beforeRaw=text.slice(0,rawPoint),afterRaw=text.slice(rawPoint);
+    const before=beforeRaw.trimEnd(),after=afterRaw.trimStart();
+    if(!before||!after){alert('Place the cursor between the two parts of the dialogue line.');return;}
+    const leftTrim=beforeRaw.length-before.length;
+    const rightTrim=afterRaw.length-after.length;
+    const point=rawPoint-leftTrim;
+    const index=state.thoughts.findIndex(x=>x.id===t.id);
+    const copy=clone(t);copy.id=uid('t');copy.line=after;
+    const ranges=Array.isArray(t.accentRanges)?t.accentRanges:[];
+    t.accentRanges=ranges.filter(r=>r.start<point).map(r=>({start:r.start,end:Math.min(r.end,point)})).filter(r=>r.end>r.start);
+    copy.accentRanges=ranges.filter(r=>r.end>rawPoint+rightTrim).map(r=>({start:Math.max(0,r.start-(rawPoint+rightTrim)),end:r.end-(rawPoint+rightTrim)})).filter(r=>r.end>r.start);
+    t.line=before;
+    state.thoughts.splice(index+1,0,copy);state.activeThoughtId=copy.id;
     saveState();renderThoughtList();renderThoughtEditor();
-    requestAnimationFrame(()=>{const next=document.getElementById('richLineEditor');if(next){next.focus();const r=document.createRange();r.selectNodeContents(next);r.collapse(true);const sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);}});
+    requestAnimationFrame(()=>{const next=document.getElementById('performanceUnitText');if(next){next.focus();next.setSelectionRange(0,0);}});
   }
+  function duplicateThought(){const t=activeThought();if(!t)return;const copy=clone(t);copy.id=uid('t');copy.line=(copy.line||'')+' copy';state.thoughts.push(copy);state.activeThoughtId=copy.id;saveState();renderThoughtList();renderThoughtEditor();}
   function deleteThought(){const t=activeThought();if(!t)return;if(!confirm('Delete this thought?'))return;state.thoughts=state.thoughts.filter(x=>x.id!==t.id);state.activeThoughtId=state.thoughts[0]?.id||null;saveState();renderThoughtList();renderThoughtEditor();}
   function moveThought(dir){const i=state.thoughts.findIndex(t=>t.id===state.activeThoughtId);const j=i+dir;if(i<0||j<0||j>=state.thoughts.length)return;[state.thoughts[i],state.thoughts[j]]=[state.thoughts[j],state.thoughts[i]];saveState();renderThoughtList();}
   function selectThought(id){state.activeThoughtId=id;saveState();renderThoughtList();renderThoughtEditor();}
   function presentValue(v){return Array.isArray(v)?v.length:!!String(v||'').trim();}
   function thoughtKV(label,value){if(!presentValue(value))return '';return `<div class="thought-kv"><b>${escapeHtml(label)}</b><span title="${escapeHtml(value)}">${escapeHtml(value)}</span></div>`;}
   function thoughtBadge(label,value){if(value===true)return `<span class="badge">${escapeHtml(label)}</span>`;if(!presentValue(value))return '';return `<span class="badge">${escapeHtml(label)}: ${escapeHtml(value)}</span>`;}
+  function isOtherCharacterLine(t){
+    const source=String(t?.lineSource||'');
+    return source==='Other character’s line'||source.startsWith('relationship:');
+  }
   function combinedTextSubtextValue(t){
+    if(isOtherCharacterLine(t))return t.reaction||'';
     if(t.textSubtext)return t.textSubtext;
     const parts=[];
     if(t.paraphrase)parts.push(`Paraphrase: ${t.paraphrase}`);
@@ -1063,15 +1081,16 @@ ${t.what}`:'';
   }
   function updateCombinedTextSubtext(value){
     const t=activeThought();if(!t)return;
-    t.textSubtext=value;
+    if(isOtherCharacterLine(t))t.reaction=value;else t.textSubtext=value;
     saveState();
     renderThoughtList();
   }
-  function isOtherCharactersLine(t){return !!(t&&t.lineSource&&t.lineSource!=='My line'&&t.lineSource!=='No one’s line / space between lines');}
   function combinedTextSubtextField(t){
-    if(isOtherCharactersLine(t))return `<div style="grid-column:1/-1"><label>Reaction</label><textarea placeholder="What happens in me as I receive this line?" oninput="updateThought('reaction',this.value)">${escapeHtml(t.reaction||'')}</textarea></div>`;
+    const other=isOtherCharacterLine(t);
     const val=escapeHtml(combinedTextSubtextValue(t)||'');
-    return `<div style="grid-column:1/-1"><label>Text / Subtext / Unspoken Line</label><textarea oninput="updateCombinedTextSubtext(this.value)">${val}</textarea></div>`;
+    const label=other?'Reaction':'Text / Subtext / Unspoken Line';
+    const placeholder=other?'What happens in me as I receive this line?':'';
+    return `<div style="grid-column:1/-1"><label>${label}</label><textarea placeholder="${placeholder}" oninput="updateCombinedTextSubtext(this.value)">${val}</textarea></div>`;
   }
   function beatNotesForThought(t){
     const b=state.beats.find(x=>x.id===t.beatId);
@@ -1090,7 +1109,7 @@ ${t.what}`:'';
     const el=document.getElementById('thoughtList');
     if(!state.thoughts.length){el.innerHTML='<div class="empty">No units yet. Add a line, thought, movement, action, or vocalisation.</div>';return;}
     el.innerHTML=state.thoughts.map((t,i)=>{
-      const subtextLine=isOtherCharactersLine(t)?(t.reaction||''):combinedTextSubtextValue(t);
+      const subtextLine=combinedTextSubtextValue(t);
       const summary=[
         ['Cue',t.cue],
         ['Mode',t.mode],['Intensity',t.intensity],['Objective',t.want],['Obs.',t.obstacle],['Doing',t.action]
@@ -1100,7 +1119,7 @@ ${t.what}`:'';
       const badges=[
         thoughtBadge('Source',lineSourceLabel(t.lineSource))
       ].filter(Boolean).join('');
-      return `<div class="thought-item ${t.id===state.activeThoughtId?'active':''}" onclick="selectThought('${t.id}')"><div class="thought-meta"><span>${escapeHtml(beatName(t.beatId)||'No beat')}</span><span>#${i+1} · ${escapeHtml(t.unitType||'Thought')}</span></div><div class="thought-line">${lineDisplayHtml(t)}</div>${subtextLine?`<div class="thought-subtext-line">${escapeHtml(subtextLine)}</div>`:''}${summary?`<div class="thought-summary">${summary}</div>`:''}${beatNotes}${techniqueNotes?`<div class="thought-summary technique-notes">${techniqueNotes}</div>`:''}${badges?`<div class="thought-badges">${badges}</div>`:''}</div>`;
+      return `<div class="thought-item ${t.id===state.activeThoughtId?'active':''}" onclick="selectThought('${t.id}')"><div class="thought-meta"><span>${escapeHtml(beatName(t.beatId)||'No beat')}</span><span>#${i+1} · ${escapeHtml(t.unitType||'Thought')}</span></div><div class="thought-line">${t.line?accentedLineHtml(t):escapeHtml(t.action||'Untitled line / thought / movement / action')}</div>${subtextLine?`<div class="thought-subtext-line">${escapeHtml(subtextLine)}</div>`:''}${summary?`<div class="thought-summary">${summary}</div>`:''}${beatNotes}${techniqueNotes?`<div class="thought-summary technique-notes">${techniqueNotes}</div>`:''}${badges?`<div class="thought-badges">${badges}</div>`:''}</div>`;
     }).join('');
   }
   function field(t,key,label,type='textarea',minDepth='essential'){const val=escapeHtml(t[key]||''); const depthAttr=minDepth&&minDepth!=='essential'?` data-min-depth="${minDepth}"`:''; if(type==='input')return `<div${depthAttr}><label>${label}</label><input value="${val}" oninput="updateThought('${key}',this.value)"></div>`; return `<div${depthAttr}><label>${label}</label><textarea oninput="updateThought('${key}',this.value)">${val}</textarea></div>`;}
@@ -1187,7 +1206,14 @@ ${t.what}`:'';
   }
   function unitTypeField(t){const val=t.unitType==='Line'?'Dialogue':(t.unitType||'Thought');const opts=['Dialogue','Thought','Movement','Action','Vocalisation / Sound'].map(v=>`<option value="${v}" ${val===v?'selected':''}>${v}</option>`).join('');return `<div><label>Unit Type</label><select onchange="updateThought('unitType',this.value)">${opts}</select></div>`;}
   function unitTypeHeading(t){return t.unitType==='Line'?'Dialogue':(t.unitType||'Thought');}
-  function performanceUnitBlock(t){const heading=unitTypeHeading(t);const content=sanitiseLineHtml(t.lineHtml||'')||escapeHtml(t.line||'');return `<div class="performance-unit-card"><div class="section-title"><div><h3>${escapeHtml(heading)}</h3><p class="help">Define the unit before choosing how it will be performed. Bold individual words to mark vocal accents.</p></div></div><div class="grid two">${unitTypeField(t)}<div class="performance-unit-content"><label>${escapeHtml(heading)}</label><div class="rich-line-toolbar"><button class="btn small" type="button" onclick="boldSelectedLineText()"><b>B</b> Accent</button><button class="btn small" type="button" onclick="splitThoughtAtCursor()">Split at cursor</button></div><div id="richLineEditor" class="rich-line-editor" contenteditable="true" role="textbox" aria-multiline="true" oninput="updateRichLine(this)" onkeydown="if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='b'){event.preventDefault();boldSelectedLineText();}">${content}</div><p class="help">Select a word and press Accent, or use Ctrl/Cmd+B. Place the cursor where the line should divide and press Split at cursor.</p></div></div></div>`;}
+  function performanceUnitBlock(t){
+    const heading=unitTypeHeading(t);
+    const isDialogue=t.unitType==='Dialogue';
+    const actions=isDialogue?`<div class="split-line-actions"><button class="btn small" type="button" onclick="splitDialogueLine()">Split at cursor</button><button class="btn small" type="button" onclick="accentSelectedWords()"><b>B</b> Accent selection</button>${(t.accentRanges||[]).length?`<button class="btn small" type="button" onclick="clearDialogueAccents()">Clear accents</button>`:''}</div>`:'';
+    const response=isDialogue?`<div style="grid-column:1/-1;margin-top:10px">${combinedTextSubtextField(t)}</div>`:'';
+    const preview=isDialogue&&String(t.line||'').trim()?`<div class="accent-preview" aria-label="Dialogue accent preview">${accentedLineHtml(t)}</div>`:'';
+    return `<div class="performance-unit-card"><div class="section-title"><div><h3>${escapeHtml(heading)}</h3><p class="help">Define the unit before choosing how it will be performed.</p></div></div><div class="grid two">${unitTypeField(t)}<div class="performance-unit-content"><div class="split-line-row"><label>${escapeHtml(heading)}</label>${actions}</div><textarea id="performanceUnitText" oninput="updateThought('line',this.value)" onkeydown="if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='b'){event.preventDefault();accentSelectedWords();}">${escapeHtml(t.line||'')}</textarea>${preview}</div>${response}</div></div>`;
+  }
   function jokeToggleField(t){const val=t.makeJoke?'yes':'';return `<div><label>Make Line a Joke?</label><select onchange="setThoughtJoke(this.value)"><option value="" ${!val?'selected':''}>No</option><option value="yes" ${val==='yes'?'selected':''}>Yes</option></select></div>`;}
   function jokeFields(t){return `<details class="collapsible" style="margin-top:10px;background:#fffaf2"${t.makeJoke?' open':''}><summary>Comedy / Joke Work ${t.makeJoke?'<span class="badge">on</span>':''}</summary>${removePanelButton('joke')}<div class="grid two" style="margin-top:10px">${jokeToggleField(t)}${t.makeJoke?`${field(t,'jokeSetup','Setup / Assumption')}${field(t,'jokeTurn','Turn / Reversal')}${field(t,'jokeLanding','Punch / Landing')}${field(t,'jokeTiming','Timing / Pause / Button')}${field(t,'jokeTruth','Truth / Stakes Underneath')}${field(t,'jokeButton','Tag / Extra Button','textarea','professional')}`:''}</div></details>`;}
   function setThoughtJoke(value){const t=activeThought();if(!t)return;t.makeJoke=value==='yes';saveState();renderThoughtList();renderThoughtEditor();}
@@ -1286,12 +1312,12 @@ ${t.what}`:'';
   function renderThoughtEditor(){
     const el=document.getElementById('thoughtEditor');const t=activeThought();if(!t){el.innerHTML='<div class="empty">Select or add a performance unit.</div>';return;}
     const contextOpen=' open';
-    const supportingLabel=isOtherCharactersLine(t)?'Reaction':'Subtext';
-    const supportingValue=isOtherCharactersLine(t)?t.reaction:combinedTextSubtextValue(t);
-    el.innerHTML=`${performanceUnitBlock(t)}${primaryPerformanceChoice(t)}<details class="collapsible" open><summary>${supportingLabel} ${presentValue(supportingValue)?'<span class="badge">used</span>':''}</summary><div class="grid two" style="margin-top:10px">${combinedTextSubtextField(t)}</div></details><details class="collapsible"${contextOpen}><summary>Context &amp; Supporting Choices ${(t.beatId||hasAny(t,['lineSource','cue','want','obstacle','action']))?'<span class="badge">used</span>':''}</summary><div class="grid two compact-core" style="margin-top:10px"><div><label>Beat</label><select onchange="updateThought('beatId',this.value)">${renderBeatOptions(t.beatId)}</select></div>${lineSourceField(t)}${field(t,'cue','Cue / Trigger','input')}${field(t,'want','Objective / Sub-objective')}${field(t,'obstacle','Obstacle')}${field(t,'action','What I Am Doing to Get My Want','input')}</div></details>${optionalPanelControls(t)}${renderOptionalThoughtPanels(t)}${renderTechniquePanelForThought(t)}`;
+    const responseLabel=isOtherCharacterLine(t)?'Reaction':'Subtext';
+    const separateResponse=t.unitType==='Dialogue'?'':`<details class="collapsible" open><summary>${responseLabel} ${presentValue(combinedTextSubtextValue(t))?'<span class="badge">used</span>':''}</summary><div class="grid two" style="margin-top:10px">${combinedTextSubtextField(t)}</div></details>`;
+    el.innerHTML=`${performanceUnitBlock(t)}${primaryPerformanceChoice(t)}${separateResponse}<details class="collapsible"${contextOpen}><summary>Context &amp; Supporting Choices ${(t.beatId||hasAny(t,['lineSource','cue','want','obstacle','action']))?'<span class="badge">used</span>':''}</summary><div class="grid two compact-core" style="margin-top:10px"><div><label>Beat</label><select onchange="updateThought('beatId',this.value)">${renderBeatOptions(t.beatId)}</select></div>${lineSourceField(t)}${field(t,'cue','Cue / Trigger','input')}${field(t,'want','Objective / Sub-objective')}${field(t,'obstacle','Obstacle')}${field(t,'action','What I Am Doing to Get My Want','input')}</div></details>${optionalPanelControls(t)}${renderOptionalThoughtPanels(t)}${renderTechniquePanelForThought(t)}`;
     refreshDepth(); renderThoughtTechniqueControls(); renderAttachedTechniques();
   }
-  function updateThought(key,value){const t=activeThought();if(!t)return;t[key]=value;if(key==='mode'){t.modeFamily='Custom';t.modeCustom=value;}saveState();renderThoughtList();if(key==='unitType'||key==='lineSource')renderThoughtEditor();}
+  function updateThought(key,value){const t=activeThought();if(!t)return;t[key]=value;if(key==='line'){t.accentRanges=[];}if(key==='mode'){t.modeFamily='Custom';t.modeCustom=value;}saveState();renderThoughtList();if(key==='unitType'||key==='lineSource')renderThoughtEditor();}
   function thoughtTechniqueValue(t){return `${t.part}||${t.technique}`;}
   function thoughtTechniqueSearchTerm(){return (document.getElementById('thoughtTechniqueSearch')?.value||'').toLowerCase().trim();}
   function thoughtTechniqueFiltered(){
