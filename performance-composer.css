@@ -1269,3 +1269,247 @@ p{margin:0 0 1rem}h1,h2,h3{margin:0;line-height:1.08;font-weight:500;letter-spac
     box-shadow:none!important;
   }
 }
+
+
+/* Performance Composer — primary site experience */
+.composer-intro{
+  background:var(--black);
+  color:var(--paper);
+  border-bottom:1px solid rgba(255,255,255,.14);
+}
+.composer-intro-inner{
+  width:min(var(--wide),calc(100% - 2*var(--pad)));
+  margin:0 auto;
+  min-height:190px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:36px;
+  padding:42px 0 38px;
+}
+.composer-intro .kicker{
+  color:#d6ae58;
+  margin-bottom:10px;
+}
+.composer-intro h1{
+  font-size:clamp(2.7rem,5.7vw,6.5rem);
+  line-height:.92;
+  letter-spacing:-.055em;
+}
+.composer-intro p:last-child{
+  max-width:790px;
+  margin:18px 0 0;
+  color:rgba(255,255,255,.72);
+  font-size:clamp(.98rem,1.35vw,1.2rem);
+}
+.composer-method-link{
+  flex:0 0 auto;
+  border-bottom:1px solid rgba(255,255,255,.58);
+  padding-bottom:4px;
+  margin-bottom:4px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:.72rem;
+  font-weight:600;
+}
+@media (max-width: 760px){
+  .composer-intro-inner{
+    min-height:auto;
+    display:block;
+    padding:34px 0 30px;
+  }
+  .composer-method-link{
+    display:inline-block;
+    margin-top:22px;
+  }
+}
+
+.statement .statement-signature{
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:.78rem;
+}
+.statement-method-link{
+  display:inline-block;
+  margin-top:20px;
+  color:var(--paper);
+}
+
+
+/* Performance-first Composer navigation */
+.workbook-page .tab-separator{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:38px;
+  padding:0 2px;
+  color:rgba(35,35,35,.48);
+  font-family:var(--font-body);
+  font-size:1.1rem;
+}
+.workbook-page .nav-secondary .acting-skills-tab{
+  background:transparent;
+  border-color:var(--line);
+  color:var(--ink);
+}
+.workbook-page .nav-secondary .acting-skills-tab:hover{
+  background:rgba(75,75,75,.08);
+  color:var(--ink);
+}
+.workbook-page .nav-secondary .acting-skills-tab.active{
+  background:var(--black);
+  border-color:var(--black);
+  color:var(--paper);
+}
+
+/* Primary performance choice */
+.workbook-page .performance-primary-choice{
+  border:1px solid var(--line);
+  background:#fffaf2;
+  padding:20px;
+  margin-bottom:12px;
+}
+.workbook-page .mode-builder{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  align-items:end;
+}
+.workbook-page .mode-custom-result{
+  grid-column:1/-1;
+}
+.workbook-page .mode-statement{
+  margin:12px 0 0;
+  padding:10px 12px;
+  border-left:3px solid var(--gold);
+  background:rgba(255,255,255,.62);
+}
+.workbook-page .intensity-selector{
+  display:grid;
+  grid-template-columns:minmax(150px,220px) minmax(220px,1fr);
+  gap:18px;
+  align-items:end;
+  margin-top:18px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+.workbook-page .intensity-scale{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:10px;
+  align-items:center;
+  min-height:42px;
+}
+.workbook-page .intensity-scale > div{
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:4px;
+}
+.workbook-page .intensity-scale i{
+  display:block;
+  height:10px;
+  border:1px solid rgba(35,35,35,.25);
+  background:rgba(35,35,35,.06);
+}
+.workbook-page .intensity-scale i.active{
+  background:var(--gold);
+  border-color:var(--gold);
+  transform:scaleY(1.55);
+}
+
+/* Dramatic Range tracker */
+.workbook-page .dramatic-range{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.48);
+  padding:16px 18px 20px;
+  margin:0 0 18px;
+}
+.workbook-page .dramatic-range-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:18px;
+}
+.workbook-page .dramatic-range-label{
+  margin:0 0 4px;
+  font-size:.76rem;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.workbook-page .dramatic-range-head strong{
+  font-family:var(--font-display);
+  font-size:1.55rem;
+}
+.workbook-page .dramatic-range-value{
+  border:1px solid var(--line);
+  padding:6px 10px;
+  font-weight:700;
+  background:var(--cream);
+}
+.workbook-page .dramatic-range-track{
+  position:relative;
+  height:8px;
+  margin:18px 8px 8px;
+  background:rgba(35,35,35,.13);
+}
+.workbook-page .dramatic-range-track.empty{
+  margin-top:12px;
+}
+.workbook-page .dramatic-range-fill{
+  position:absolute;
+  top:0;
+  bottom:0;
+  background:var(--gold);
+}
+.workbook-page .dramatic-range-track i{
+  position:absolute;
+  top:50%;
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  border:2px solid var(--black);
+  background:var(--cream);
+  color:var(--black);
+  font-style:normal;
+  font-size:.74rem;
+  font-weight:800;
+  z-index:2;
+}
+.workbook-page .dramatic-range-scale{
+  display:flex;
+  justify-content:space-between;
+  padding:0 2px;
+  color:rgba(35,35,35,.66);
+  font-size:.78rem;
+}
+
+@media (max-width:900px){
+  .workbook-page .mode-builder{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .workbook-page .intensity-selector{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .workbook-page .tab-separator{display:none}
+  .workbook-page .mode-builder{grid-template-columns:1fr}
+  .workbook-page .dramatic-range-head{align-items:flex-start;flex-direction:column}
+}
+
+
+/* Project and scene context */
+.workbook-page .scene-context-manager{border:1px solid var(--line);background:rgba(255,255,255,.34);padding:18px;margin-bottom:22px}
+.workbook-page .scene-context-names{margin-top:12px}
+.workbook-page .scene-context-actions{margin-top:14px}
+.workbook-page .scene-detail-divider{height:1px;background:var(--line);margin:2px 0 22px}
+.workbook-page .performance-unit-card{border:1px solid var(--ink);background:rgba(255,255,255,.52);padding:18px;margin-bottom:14px}
+.workbook-page .performance-unit-card .section-title{margin-bottom:12px}
+.workbook-page .performance-unit-card h3{margin:0;text-transform:uppercase}
+.workbook-page .performance-unit-content{grid-column:1/-1}
+@media(max-width:700px){
+  .workbook-page .scene-context-manager{padding:14px}
+  .workbook-page .performance-unit-card{padding:14px}
+}
