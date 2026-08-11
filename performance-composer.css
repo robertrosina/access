@@ -1162,14 +1162,14 @@ p{margin:0 0 1rem}h1,h2,h3{margin:0;line-height:1.08;font-weight:500;letter-spac
 .workbook-page #thoughtTab .thought-subtext-line{
   text-align:center;
   font-style:italic;
-  font-size:clamp(1.05rem,1.5vw,1.45rem);
+  font-size:inherit;
   line-height:1.35;
-  margin:-8px 0 16px;
+  margin:12px 0 16px;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
 }
 .workbook-page .performance-workbench-layout.workbench-collapsed .thought-subtext-line{
-  font-size:clamp(1.05rem,1.5vw,1.45rem);
+  font-size:inherit;
 }
 
 
